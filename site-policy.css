@@ -312,7 +312,7 @@ body.policy-page::before {
 }
 
 .policy-page h3 {
-    color: #244F88;
+    color: var(--deep-sky);
 }
 
 .definition-list {
@@ -331,12 +331,12 @@ body.policy-page::before {
 
 .definition-list dd {
     margin: 0.35rem 0 0;
-    color: var(--text-light);
+    color: inherit;
 }
 
 .source-note a,
 .reference-list a {
-    color: #1C579E;
+    color: var(--bs-link-color);
     font-weight: 500;
 }
 
@@ -388,7 +388,7 @@ body.policy-page::before {
 .notice-box {
     margin-top: 1rem;
     padding: 1rem 1.2rem;
-    color: #354357;
+    color: inherit;
     background: var(--cloud-white);
     border-left: 4px solid var(--sky-blue);
     border-radius: 0 10px 10px 0;
