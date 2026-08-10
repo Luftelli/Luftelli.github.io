@@ -519,6 +519,8 @@
         }
     </style>
 
+    <link rel="stylesheet" href="site-policy.css?v=20260811">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8YXW37KQM9"></script>
     <script>
@@ -534,13 +536,30 @@
     <!-- ナビゲーション -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Luftelli</a>
+            <a class="navbar-brand" href="index.html">Luftelli</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="ナビゲーションを開閉する">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="policyDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-scale-balanced"></i> 方針・規約
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="policyDropdown">
+                            <li><a class="dropdown-item" href="terms.html"><i class="fas fa-file-contract me-2"></i>利用規約</a></li>
+                            <li><a class="dropdown-item" href="privacy.html"><i class="fas fa-shield-halved me-2"></i>プライバシーポリシー</a></li>
+                            <li><a class="dropdown-item" href="content-guidelines.html"><i class="fas fa-photo-film me-2"></i>配信・二次創作ガイドライン</a></li>
+                            <li><a class="dropdown-item" href="ai-policy.html"><i class="fas fa-wand-magic-sparkles me-2"></i>生成AI利用方針</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">
+                            <i class="fas fa-envelope"></i> お問い合わせ
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ">
                             <i class="fas fa-blog"></i> ブログ
@@ -650,6 +669,13 @@
     <!-- フッター -->
     <footer>
         <div class="container">
+            <p class="footer-links mb-2">
+                <a href="terms.html">利用規約</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="content-guidelines.html">配信・二次創作ガイドライン</a>
+                <a href="ai-policy.html">生成AI利用方針</a>
+                <a href="contact.html">お問い合わせ</a>
+            </p>
             <p class="mb-0">© <span id="copyright-year"></span> Luftelli</p>
         </div>
     </footer>
