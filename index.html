@@ -30,6 +30,7 @@
             --ai-cyan: #00D9FF;
             --ai-purple: #A855F7;
             --text-dark: #1A202C;
+            --text-body: #475569;
             --text-light: #64748B;
         }
 
@@ -192,7 +193,7 @@
 
         .hero-section p {
             font-size: 1.4rem;
-            font-weight: 300;
+            font-weight: 400;
             animation: fadeInUp 0.8s ease 0.2s backwards;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             letter-spacing: 2px;
@@ -262,6 +263,32 @@
             background: linear-gradient(90deg, var(--ai-cyan), var(--sky-blue), var(--ai-purple));
             border-radius: 2px;
             box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+        }
+
+        /* サークル紹介 */
+        .about-card {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 2.5rem 3rem;
+            background: white;
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(74, 144, 226, 0.1);
+        }
+
+        .about-card p {
+            margin-bottom: 1.5rem;
+            color: var(--text-body);
+            font-size: 1.05rem;
+            line-height: 2;
+        }
+
+        .about-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-card strong {
+            color: var(--text-dark);
         }
 
         /* カードスタイル */
@@ -354,7 +381,7 @@
         }
 
         .game-card-body p {
-            color: var(--text-light);
+            color: var(--text-body);
             margin-bottom: 1.5rem;
         }
 
@@ -431,8 +458,38 @@
         }
 
         .member-text {
-            color: var(--text-light);
+            color: var(--text-body);
             line-height: 1.8;
+        }
+
+        .member-card-inactive {
+            background: rgba(255, 255, 255, 0.75);
+            box-shadow: 0 8px 30px rgba(100, 116, 139, 0.1);
+        }
+
+        .member-card-inactive::before {
+            background: linear-gradient(90deg, #cbd5e1, #94a3b8);
+            transform: scaleX(1);
+        }
+
+        .member-card-inactive .member-header {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-card-inactive .member-text {
+            color: var(--text-light);
+        }
+
+        .member-status {
+            width: fit-content;
+            margin: 0 auto 1rem;
+            padding: 0.25rem 0.75rem;
+            color: var(--text-light);
+            background: #e2e8f0;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
         /* フッター */
@@ -485,6 +542,15 @@
 
             .section-title {
                 font-size: 2rem;
+            }
+
+            .about-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .about-card p {
+                font-size: 1rem;
+                line-height: 1.9;
             }
 
             .member-card {
@@ -585,13 +651,34 @@
     <section class="hero-section">
         <div class="container">
             <h1>Luftelli</h1>
-            <p>ゲーム制作サークルLuftelliの公式ページです</p>
+            <p>懐かしさの先に、新しい遊びを。</p>
         </div>
     </section>
 
     <!-- メインコンテンツ -->
     <div class="main-container">
         <div class="container">
+            <!-- サークル紹介 -->
+            <section class="section">
+                <h2 class="section-title">Luftelliについて</h2>
+                <div class="about-card">
+                    <p>
+                        Luftelliは、大学院時代にゲーム好きの同期が集まり、
+                        <strong>「かつて夢中になったゲームで味わったような体験を、自分たちの手で作りたい」</strong>と
+                        考えたことをきっかけに始まったゲーム開発サークルです。特定のジャンルに限定せず、
+                        メンバー自身が本当に遊んでみたいと思うアイデアを形にし、作品として継続的に公開することを目指しています。
+                    </p>
+                    <p>
+                        メンバーが人工知能を研究していた経験を生かし、現在はAIをゲーム開発に活用しています。
+                        将来的には、AIそのものを遊びやキャラクターとして体験できる作品にも挑戦していきます。
+                    </p>
+                    <p>
+                        「Luftelli」という名前は、設立当時に制作していた空を飛ぶゲームと、メンバーの研究分野に由来します。
+                        <strong>「Luft（空）」</strong>と<strong>「Intelligence（知能）」</strong>を組み合わせて名付けました。
+                    </p>
+                </div>
+            </section>
+
             <!-- 制作中のゲーム -->
             <section class="section">
                 <h2 class="section-title">制作中のゲーム</h2>
@@ -617,8 +704,8 @@
             <!-- サークル情報 -->
             <section class="section">
                 <h2 class="section-title">メンバー</h2>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-3">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-4 col-xl">
                         <div class="member-card">
                             <div class="member-header">
                                 Cdec
@@ -631,7 +718,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4 col-xl">
                         <div class="member-card">
                             <div class="member-header">
                                 Lui
@@ -641,7 +728,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4 col-xl">
                         <div class="member-card">
                             <div class="member-header">
                                 Van
@@ -651,13 +738,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4 col-xl">
                         <div class="member-card">
                             <div class="member-header">
                                 Zip
                             </div>
                             <div class="member-text">
                                 サークルで最年少。<br>運動が得意。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl">
+                        <div class="member-card member-card-inactive">
+                            <div class="member-header">
+                                S丼
+                            </div>
+                            <div class="member-status">現在は活動休止中</div>
+                            <div class="member-text">
+                                サークル設立発案者。<br>エアライドマスター。略してエアマス。
                             </div>
                         </div>
                     </div>
