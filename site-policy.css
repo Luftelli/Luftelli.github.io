@@ -1,3 +1,7 @@
+/* =========================================================
+   全ページ共通のデザイントークンと土台
+   個別ページで値を直書きせず、必ずここの変数を使うこと
+   ========================================================= */
 :root {
     --sky-blue: #4A90E2;
     --deep-sky: #2C5AA0;
@@ -5,18 +9,138 @@
     --ai-cyan: #00D9FF;
     --ai-purple: #A855F7;
     --text-dark: #1A202C;
+    --text-body: #475569;
     --text-light: #64748B;
     --success: #19734D;
     --caution: #A54242;
+    /* 画面幅を活かすための共通シェル */
+    --shell-max: 1500px;
+    --shell-gutter: clamp(1.25rem, 4vw, 4rem);
+    /* 固定ヘッダー分のアンカーオフセット */
+    --header-offset: 90px;
+    /* カード・パネルの共通スタイル */
+    --card-radius: 24px;
+    --card-border: 1px solid rgba(74, 144, 226, 0.12);
+    --card-shadow: 0 12px 40px rgba(35, 79, 142, 0.1);
+    --card-shadow-hover: 0 22px 60px rgba(35, 79, 142, 0.2);
+    --panel-radius: 40px;
 }
 
 html {
     scroll-behavior: smooth;
 }
 
-/* 全ページで共通にするヘッダー */
-.navbar {
+/* Bootstrapのcontainerを全ブレークポイントで広く使う */
+.container {
+    width: 100%;
+    max-width: var(--shell-max);
+    padding-right: var(--shell-gutter);
+    padding-left: var(--shell-gutter);
+}
+
+/* 全ページ共通の背景（空をイメージしたグラデーション） */
+body {
     position: relative;
+    min-height: 100vh;
+    margin: 0;
+    /* hidden にするとbodyがスクロールコンテナ扱いになり、
+       ヘッダーの position: sticky が効かなくなるため clip を使う */
+    overflow-x: clip;
+    color: var(--text-dark);
+    background: linear-gradient(135deg, #87CEEB 0%, var(--sky-blue) 50%, var(--deep-sky) 100%);
+    background-attachment: fixed;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* ゆっくり流れる雲 */
+body::before {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    content: '';
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+    animation: cloudFloat 20s ease-in-out infinite;
+}
+
+/* 薄いグリッドパターン */
+body::after {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    content: '';
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+@keyframes cloudFloat {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(30px) translateY(-20px);
+        opacity: 0.8;
+    }
+}
+
+/* 全ページ共通のスクロールバー */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--sky-blue), var(--ai-cyan));
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--deep-sky), var(--sky-blue));
+}
+
+/* 全ページ共通の本文コンテナ（ヒーローに重なる白いパネル） */
+.main-container,
+.policy-main {
+    position: relative;
+    z-index: 2;
+    margin-top: -60px;
+    padding: clamp(3.5rem, 6vw, 6rem) 0;
+    background: linear-gradient(180deg, rgba(240, 244, 248, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
+    border-radius: var(--panel-radius) var(--panel-radius) 0 0;
+    box-shadow: 0 -10px 50px rgba(35, 79, 142, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.main-container::before,
+.policy-main::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    content: '';
+    background: linear-gradient(90deg, transparent, var(--ai-cyan), var(--sky-blue), var(--ai-purple), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* 全ページで共通にするヘッダー（スクロールしても上端に留まる） */
+.navbar {
+    position: sticky;
+    top: 0;
     z-index: 1000;
     line-height: 1.5;
     background: rgba(255, 255, 255, 0.9) !important;
@@ -161,27 +285,9 @@ footer a:focus {
     justify-content: center;
 }
 
-/* 方針・規約ページ */
+/* 方針・規約ページ（背景・本文コンテナは共通定義を使う） */
 body.policy-page {
-    min-height: 100vh;
-    margin: 0;
-    overflow-x: hidden;
-    color: var(--text-dark);
-    background: linear-gradient(135deg, #87CEEB 0%, var(--sky-blue) 50%, var(--deep-sky) 100%);
-    background-attachment: fixed;
-    font-family: 'Noto Sans JP', sans-serif;
     line-height: 1.9;
-}
-
-body.policy-page::before {
-    position: fixed;
-    z-index: 0;
-    inset: 0;
-    content: '';
-    pointer-events: none;
-    background:
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.32) 0%, transparent 45%),
-        radial-gradient(circle at 85% 65%, rgba(255, 255, 255, 0.2) 0%, transparent 42%);
 }
 
 .policy-hero {
@@ -209,25 +315,76 @@ body.policy-page::before {
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.policy-main {
-    position: relative;
-    z-index: 2;
-    margin-top: -45px;
-    padding: 64px 0 80px;
-    background: linear-gradient(180deg, rgba(240, 244, 248, 0.97) 0%, #fff 100%);
-    border-radius: 40px 40px 0 0;
-    box-shadow: 0 -10px 50px rgba(35, 79, 142, 0.2);
+/* 目次サイドバー + 本文の2カラム */
+.policy-layout {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: start;
+}
+
+@media (min-width: 1200px) {
+    .policy-layout {
+        grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+    }
+
+    .policy-side {
+        position: sticky;
+        top: var(--header-offset);
+        max-height: calc(100vh - var(--header-offset) - 2rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+}
+
+/* 本文は読みやすい行長を保つ */
+.policy-layout > .policy-list,
+.policy-layout > .policy-stack {
+    max-width: 1080px;
+    min-width: 0;
+}
+
+/* 目次を持たないページも本文幅は同じに揃える */
+.policy-main > .container:not(.policy-layout) > .policy-list,
+.policy-main > .container:not(.policy-layout) > .policy-stack {
+    max-width: 1080px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .policy-list {
     gap: 1.5rem;
 }
 
-.policy-list > .card {
+.policy-list > .card,
+.policy-stack > .card {
+    scroll-margin-top: calc(var(--header-offset) + 1rem);
+}
+
+.policy-nav {
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.85);
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.policy-nav-title {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    margin-bottom: 0.9rem;
+    color: var(--deep-sky);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.policy-list > .card,
+.policy-stack > .card {
     overflow: hidden;
-    border: 1px solid rgba(74, 144, 226, 0.14);
-    border-radius: 22px;
-    box-shadow: 0 12px 35px rgba(35, 79, 142, 0.09);
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
 }
 
 .policy-list > .card .card-body {
@@ -361,27 +518,50 @@ body.policy-page::before {
 
 .policy-toc {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.4rem;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 .policy-toc a {
-    display: block;
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
     height: 100%;
-    padding: 0.8rem 1rem;
+    padding: 0.55rem 0.75rem;
     color: var(--deep-sky);
-    background: rgba(74, 144, 226, 0.07);
-    border: 1px solid rgba(74, 144, 226, 0.14);
-    border-radius: 12px;
+    border-left: 3px solid transparent;
+    border-radius: 0 10px 10px 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
     text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.policy-toc a::before {
+    flex: none;
+    content: counter(policy-toc-item, decimal-leading-zero);
+    color: var(--sky-blue);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.75rem;
+    font-weight: 700;
+    opacity: 0.7;
+}
+
+.policy-toc li {
+    counter-increment: policy-toc-item;
+}
+
+.policy-toc {
+    counter-reset: policy-toc-item;
 }
 
 .policy-toc a:hover,
 .policy-toc a:focus {
-    background: rgba(74, 144, 226, 0.14);
+    background: rgba(74, 144, 226, 0.1);
+    border-left-color: var(--sky-blue);
 }
 
 .source-note,
@@ -446,8 +626,8 @@ body.policy-page::before {
         letter-spacing: 0.06em;
     }
 
+    .main-container,
     .policy-main {
-        padding-top: 46px;
         border-radius: 30px 30px 0 0;
     }
 

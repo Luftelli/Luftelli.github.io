@@ -13,10 +13,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site-policy.css?v=20260811-2">
+    <link rel="stylesheet" href="site-policy.css?v=20260812-3">
 </head>
 <body class="policy-page">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">Luftelli</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -27,20 +27,26 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="policyDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-scale-balanced"></i> 方針・規約
-                        </a>
+                            data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-scale-balanced"></i> 方針・規約</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="policyDropdown">
-                            <li><a class="dropdown-item" href="terms.html"><i class="fas fa-file-contract me-2"></i>利用規約</a></li>
+                            <li><a class="dropdown-item active" aria-current="page" href="terms.html"><i class="fas fa-file-contract me-2"></i>利用規約</a></li>
                             <li><a class="dropdown-item" href="privacy.html"><i class="fas fa-shield-halved me-2"></i>プライバシーポリシー</a></li>
                             <li><a class="dropdown-item" href="content-guidelines.html"><i class="fas fa-photo-film me-2"></i>配信・二次創作ガイドライン</a></li>
                             <li><a class="dropdown-item" href="ai-policy.html"><i class="fas fa-wand-magic-sparkles me-2"></i>生成AI利用方針</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> お問い合わせ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ"><i class="fas fa-blog"></i> ブログ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://x.com/luftelli" target="blank" title="X"><i class="fab fa-x-twitter"></i> X</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://www.youtube.com/channel/UCWH0lqiuqRfSv5aRUU60-uw" target="blank" title="YouTube"><i class="fab fa-youtube"></i> YouTube</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> お問い合わせ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ"><i class="fas fa-blog"></i> ブログ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://x.com/luftelli" target="blank" title="X"><i class="fab fa-x-twitter"></i> X</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.youtube.com/channel/UCWH0lqiuqRfSv5aRUU60-uw" target="blank" title="YouTube"><i class="fab fa-youtube"></i> YouTube</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -54,9 +60,23 @@
     </header>
 
     <main class="policy-main">
-        <div class="container">
+        <div class="container policy-layout">
+            <aside class="policy-side">
+                <nav class="policy-nav" aria-label="このページの目次">
+                    <p class="policy-nav-title"><i class="fas fa-list-ul" aria-hidden="true"></i>目次</p>
+                    <ul class="policy-toc">
+                        <li><a href="#summary">このページの要約</a></li>
+                        <li><a href="#scope">適用</a></li>
+                        <li><a href="#license">利用について</a></li>
+                        <li><a href="#prohibited">禁止事項</a></li>
+                        <li><a href="#rights">権利とサービスの変更</a></li>
+                        <li><a href="#disclaimer">免責</a></li>
+                        <li><a href="#contact">お問い合わせと改定</a></li>
+                    </ul>
+                </nav>
+            </aside>
             <div class="list-group policy-list">
-                <article class="card summary-card">
+                <article class="card summary-card" id="summary">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-list-check" aria-hidden="true"></i>このページの要約</h2>
                         <div class="row g-4">
@@ -84,7 +104,7 @@
                     </div>
                 </article>
 
-                <article class="card lead-card">
+                <article class="card lead-card" id="scope">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-circle-info" aria-hidden="true"></i>適用</h2>
                         <p>本規約は、Luftelli（以下「当サークル」といいます。）が提供する次のもの（総称して「本サービス」といいます。）に適用されます。</p>

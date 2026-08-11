@@ -21,7 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="site-policy.css?v=20260811-2">
+    <link rel="stylesheet" href="site-policy.css?v=20260812-3">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8YXW37KQM9"></script>
@@ -35,7 +35,7 @@
 
 <body class="policy-page">
     <!-- ナビゲーション -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">Luftelli</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -46,36 +46,25 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="policyDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-scale-balanced"></i> 方針・規約
-                        </a>
+                            data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-scale-balanced"></i> 方針・規約</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="policyDropdown">
                             <li><a class="dropdown-item" href="terms.html"><i class="fas fa-file-contract me-2"></i>利用規約</a></li>
                             <li><a class="dropdown-item" href="privacy.html"><i class="fas fa-shield-halved me-2"></i>プライバシーポリシー</a></li>
                             <li><a class="dropdown-item" href="content-guidelines.html"><i class="fas fa-photo-film me-2"></i>配信・二次創作ガイドライン</a></li>
-                            <li><a class="dropdown-item" href="ai-policy.html"><i class="fas fa-wand-magic-sparkles me-2"></i>生成AI利用方針</a></li>
+                            <li><a class="dropdown-item active" aria-current="page" href="ai-policy.html"><i class="fas fa-wand-magic-sparkles me-2"></i>生成AI利用方針</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">
-                            <i class="fas fa-envelope"></i> お問い合わせ
-                        </a>
+                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> お問い合わせ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ">
-                            <i class="fas fa-blog"></i> ブログ
-                        </a>
+                        <a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ"><i class="fas fa-blog"></i> ブログ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://x.com/luftelli" target="blank" title="X">
-                            <i class="fab fa-x-twitter"></i> X
-                        </a>
+                        <a class="nav-link" href="https://x.com/luftelli" target="blank" title="X"><i class="fab fa-x-twitter"></i> X</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.youtube.com/channel/UCWH0lqiuqRfSv5aRUU60-uw"
-                            target="blank" title="YouTube">
-                            <i class="fab fa-youtube"></i> YouTube
-                        </a>
+                        <a class="nav-link" href="https://www.youtube.com/channel/UCWH0lqiuqRfSv5aRUU60-uw" target="blank" title="YouTube"><i class="fab fa-youtube"></i> YouTube</a>
                     </li>
                 </ul>
             </div>
@@ -91,10 +80,29 @@
     </header>
 
     <main class="policy-main">
-        <div class="container">
+        <div class="container policy-layout">
+            <aside class="policy-side">
+                <nav class="policy-nav" aria-label="このページの目次">
+                    <p class="policy-nav-title"><i class="fas fa-list-ul" aria-hidden="true"></i>目次</p>
+                    <ul class="policy-toc">
+                        <li><a href="#summary">このページの要約</a></li>
+                        <li><a href="#position">方針の位置づけ</a></li>
+                        <li><a href="#definitions">用語の定義</a></li>
+                        <li><a href="#law">現行法に対する認識</a></li>
+                        <li><a href="#scope">利用範囲と透明性</a></li>
+                        <li><a href="#training-data">学習データの取扱い</a></li>
+                        <li><a href="#input-data">入力データの取扱い</a></li>
+                        <li><a href="#outsourcing">制作の委託</a></li>
+                        <li><a href="#imitation">模倣の防止とサービス選定</a></li>
+                        <li><a href="#quality">品質管理</a></li>
+                        <li><a href="#references">参考にした公的資料</a></li>
+                        <li><a href="#contact">お問い合わせと改定</a></li>
+                    </ul>
+                </nav>
+            </aside>
             <div class="list-group policy-list">
                 <!-- 方針の要約 -->
-                <article class="card summary-card">
+                <article class="card summary-card" id="summary">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-list-check" aria-hidden="true"></i>このページの要約</h2>
                         <div class="row g-4">
@@ -129,7 +137,7 @@
                 </article>
 
                 <!-- 方針の位置づけ -->
-                <article class="card">
+                <article class="card" id="position">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-compass" aria-hidden="true"></i>方針の位置づけ</h2>
                         <p>Luftelliは、生成AIを創作を支援し、表現や制作の可能性を広げる技術として、制作活動全般で利用します。本方針は、生成AIに対するLuftelliの現在の認識、スタンス及び自主的な利用方針を示すものです。</p>
@@ -140,7 +148,7 @@
                 </article>
 
                 <!-- 用語の定義 -->
-                <article class="card">
+                <article class="card" id="definitions">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-book" aria-hidden="true"></i>用語の定義</h2>
                         <dl class="definition-list">
@@ -157,7 +165,7 @@
                 </article>
 
                 <!-- 現行法に対する認識 -->
-                <article class="card">
+                <article class="card" id="law">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-scale-balanced" aria-hidden="true"></i>現行法に対する認識</h2>
                         <p>Luftelliは、日本の現行法上、生成AI技術及び生成AIを利用すること自体が、直ちに違法又は著作権侵害となるものではないと認識しています。</p>
@@ -174,7 +182,7 @@
                 </article>
 
                 <!-- 利用範囲と透明性 -->
-                <article class="card">
+                <article class="card" id="scope">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-eye" aria-hidden="true"></i>利用範囲と透明性</h2>
                         <p>生成AIは、企画、調査、文章、画像、音声、映像、3D素材、プログラム、品質改善その他の制作活動全般で利用します。一方、生成AIによる成果物の最終成果物への利用は限定的とし、UI文言、補助的なUI素材、背景の小さな装飾物、汎用的なテクスチャ、短い効果音など、作品の主要な表現又は体験を構成しない要素に限ります。作品の中核となるキャラクター、主要なビジュアル、シナリオ、音楽その他の主要な表現又は体験には使用しません。</p>
@@ -183,7 +191,7 @@
                 </article>
 
                 <!-- 学習データの取扱い -->
-                <article class="card">
+                <article class="card" id="training-data">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-database" aria-hidden="true"></i>学習データの取扱い</h2>
                         <h3 class="h5 fw-bold mt-1">Luftelli自身が学習を行う場合</h3>
@@ -202,7 +210,7 @@
                 </article>
 
                 <!-- 入力データの取扱い -->
-                <article class="card">
+                <article class="card" id="input-data">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-arrow-right-to-bracket" aria-hidden="true"></i>入力データの取扱い</h2>
                         <p>生成AIサービスによっては、入力データがサービス提供者による将来のモデルの学習又は更新に使用される場合があります。この場合、当該入力データは、その学習又は更新の過程において学習データとして扱われます。</p>
@@ -213,7 +221,7 @@
                 </article>
 
                 <!-- 制作の委託 -->
-                <article class="card">
+                <article class="card" id="outsourcing">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-handshake" aria-hidden="true"></i>制作の委託</h2>
                         <p>本方針における「制作の委託」には、作品全体の制作だけでなく、イラスト、画像、音楽、効果音、音声、映像、3Dモデル、文章、プログラムその他の素材又は制作工程の全部若しくは一部を第三者へ依頼することを含みます。委託先には、法人、個人事業主、フリーランスその他の個人クリエイターを含みます。</p>
@@ -224,7 +232,7 @@
                 </article>
 
                 <!-- 模倣とサービス選定 -->
-                <article class="card">
+                <article class="card" id="imitation">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-shield-halved" aria-hidden="true"></i>模倣の防止とサービス選定</h2>
                         <p>特定のクリエイターによる具体的な著作物を意図的に模倣又は再現する目的で、生成AIへの指示、著作物の入力、学習又は追加学習を行いません。</p>
@@ -233,7 +241,7 @@
                 </article>
 
                 <!-- 品質管理 -->
-                <article class="card">
+                <article class="card" id="quality">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-gem" aria-hidden="true"></i>品質管理</h2>
                         <p class="mb-0">生成AIの出力には、不正確な情報、意図しない表現又は品質上の問題が含まれる可能性があります。Luftelliは、生成AIの特性と利用目的を考慮し、最終成果物としての採用可否及び必要な品質を作品ごとに判断します。</p>
@@ -241,7 +249,7 @@
                 </article>
 
                 <!-- 参考資料 -->
-                <article class="card">
+                <article class="card" id="references">
                     <div class="card-body">
                         <h2 class="section-heading"><i class="fas fa-link" aria-hidden="true"></i>参考にした公的資料</h2>
                         <p>本方針の現行法に関する記述は、以下の日本政府及び行政機関による法令・資料を参照しています。</p>

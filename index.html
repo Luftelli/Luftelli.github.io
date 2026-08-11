@@ -6,197 +6,182 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Luftelli公式ページ</title>
     <meta name="description" content="ゲーム制作サークルLuftelliの公式ページです">
-    
+
     <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Custom Styles -->
+    <link rel="stylesheet" href="site-policy.css?v=20260812-3">
+
+    <!-- トップページ固有のスタイル。
+         配色・背景・コンテナ幅・カードの共通スタイルは site-policy.css の変数を使う -->
     <style>
-        :root {
-            --sky-blue: #4A90E2;
-            --deep-sky: #2C5AA0;
-            --cloud-white: #F0F4F8;
-            --ai-cyan: #00D9FF;
-            --ai-purple: #A855F7;
-            --text-dark: #1A202C;
-            --text-body: #475569;
-            --text-light: #64748B;
-        }
-
-        * {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            color: var(--text-dark);
-            background: linear-gradient(135deg, #87CEEB 0%, #4A90E2 50%, #2C5AA0 100%);
-            background-attachment: fixed;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* 空を表現する動的背景 */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-            animation: cloudFloat 20s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* AI的なグリッドパターン */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes cloudFloat {
-            0%, 100% {
-                transform: translateX(0) translateY(0);
-                opacity: 1;
-            }
-            50% {
-                transform: translateX(30px) translateY(-20px);
-                opacity: 0.8;
-            }
-        }
-
-        /* ナビゲーション */
-        .navbar {
-            background: rgba(255, 255, 255, 0.9) !important;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 4px 30px rgba(74, 144, 226, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1000;
-        }
-
-        .navbar::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--ai-cyan), var(--sky-blue), var(--ai-purple));
-            opacity: 0.5;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, var(--sky-blue), var(--ai-cyan), var(--ai-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            letter-spacing: 2px;
-        }
-
-        .navbar-brand::after {
-            content: '✦';
-            position: absolute;
-            right: -25px;
-            top: -5px;
-            font-size: 0.6rem;
-            color: var(--ai-cyan);
-            animation: sparkle 2s ease-in-out infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
-
-        .nav-link {
-            color: var(--text-dark) !important;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 1rem !important;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--sky-blue), var(--ai-cyan));
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-link:hover {
-            color: var(--sky-blue) !important;
-            transform: translateY(-2px);
-        }
-
-        .nav-link:hover::before {
-            width: 80%;
-        }
-
         /* ヒーローセクション */
         .hero-section {
-            padding: 120px 0 80px;
-            text-align: center;
-            color: white;
             position: relative;
             z-index: 1;
+            display: flex;
+            align-items: center;
+            /* min-heightを大きくすると画面が高いほど余白だけが増えるので控えめにし、
+               上下の余白はpaddingで決める（上は固定ヘッダー分を含む） */
+            min-height: min(70vh, 720px);
+            padding: 140px 0 120px;
+            color: white;
+        }
+
+        .hero-grid {
+            display: grid;
+            gap: clamp(2.5rem, 5vw, 5rem);
+            align-items: center;
+        }
+
+        @media (min-width: 992px) {
+            .hero-grid {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+            }
+        }
+
+        .hero-copy {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            gap: 0.9rem;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: clamp(2rem, 5vw, 3.5rem);
+            height: 2px;
+            background: linear-gradient(90deg, var(--ai-cyan), rgba(255, 255, 255, 0.4));
         }
 
         .hero-section h1 {
-            font-size: 4.5rem;
+            margin-bottom: 1.25rem;
+            font-size: clamp(3.2rem, 7vw, 6.5rem);
             font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: 0.08em;
+            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.22);
+        }
+
+        .hero-lead {
             margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            letter-spacing: 8px;
+            font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+        }
+
+        .hero-text {
+            /* 左カラムの幅に対して狭すぎると、右のキービジュアルとの間が空いて見える */
+            max-width: 38em;
+            margin-bottom: 0;
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: 300;
+            line-height: 2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+        }
+
+        /* ヒーローのキービジュアル（開発中タイトルへの導線を兼ねる） */
+        .hero-visual {
             position: relative;
+            display: block;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--card-radius);
+            box-shadow: 0 30px 70px rgba(16, 42, 82, 0.4);
+            text-decoration: none;
+            animation: fadeInUp 0.8s ease 0.15s backwards;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .hero-visual:hover,
+        .hero-visual:focus-visible {
+            transform: translateY(-8px);
+            box-shadow: 0 40px 90px rgba(16, 42, 82, 0.5);
         }
 
-        .hero-section p {
-            font-size: 1.4rem;
-            font-weight: 400;
-            animation: fadeInUp 0.8s ease 0.2s backwards;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            letter-spacing: 2px;
+        .hero-visual img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+
+        /* バッジは作品ロゴに重ならないよう下部バーにまとめる */
+        .hero-visual-status {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.8rem;
+            align-items: center;
+        }
+
+        .hero-visual-badge {
+            display: inline-flex;
+            padding: 0.3rem 0.85rem;
+            color: var(--deep-sky);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .hero-visual-bar {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 1.35rem 1.15rem;
+            color: white;
+            background: linear-gradient(180deg, transparent, rgba(8, 26, 56, 0.88));
+        }
+
+        .hero-visual-meta {
+            display: inline-flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .hero-visual-cta {
+            display: inline-flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .hero-visual-cta i {
+            transition: transform 0.3s ease;
+        }
+
+        .hero-visual:hover .hero-visual-cta i,
+        .hero-visual:focus-visible .hero-visual-cta i {
+            transform: translateY(3px);
         }
 
         @keyframes fadeInUp {
@@ -210,73 +195,66 @@
             }
         }
 
-        /* メインコンテナ */
-        .main-container {
-            background: linear-gradient(180deg, rgba(240, 244, 248, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
-            backdrop-filter: blur(10px);
-            border-radius: 40px 40px 0 0;
-            margin-top: -50px;
-            position: relative;
-            padding: 60px 0;
-            z-index: 2;
-            box-shadow: 0 -10px 50px rgba(74, 144, 226, 0.2);
-        }
-
-        .main-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--ai-cyan), var(--sky-blue), var(--ai-purple), transparent);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
         /* セクション */
         .section {
-            margin-bottom: 80px;
+            margin-bottom: clamp(4rem, 7vw, 7rem);
+            scroll-margin-top: calc(var(--header-offset) + 1rem);
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
             position: relative;
+            margin-bottom: 2.5rem;
             padding-bottom: 1rem;
+            font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+            font-weight: 700;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
+            left: 0;
+            width: 88px;
             height: 4px;
             background: linear-gradient(90deg, var(--ai-cyan), var(--sky-blue), var(--ai-purple));
             border-radius: 2px;
             box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
         }
 
+        .section-intro {
+            margin: -1rem 0 2.5rem;
+            color: var(--text-body);
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
         /* サークル紹介 */
+        .about-grid {
+            display: grid;
+            gap: clamp(1.75rem, 3vw, 3rem);
+            align-items: start;
+        }
+
+        @media (min-width: 992px) {
+            .about-grid {
+                grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+            }
+        }
+
         .about-card {
-            max-width: 920px;
-            margin: 0 auto;
-            padding: 2.5rem 3rem;
+            padding: clamp(1.75rem, 3vw, 3rem);
             background: white;
-            border: 1px solid rgba(74, 144, 226, 0.1);
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(74, 144, 226, 0.1);
+            border: var(--card-border);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
         }
 
         .about-card p {
+            max-width: 46em;
             margin-bottom: 1.5rem;
             color: var(--text-body);
             font-size: 1.05rem;
@@ -291,125 +269,249 @@
             color: var(--text-dark);
         }
 
-        /* カードスタイル */
-        .modern-card {
-            background: white;
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(74, 144, 226, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(74, 144, 226, 0.1);
-            height: 100%;
-            position: relative;
-            overflow: hidden;
+        /* サークル名の由来は補足扱い。規約ページと共通の .notice-box を流用する */
+        .about-note {
+            margin-top: 0;
+            padding: clamp(1.25rem, 2.5vw, 1.6rem) clamp(1.25rem, 2.5vw, 1.75rem);
+            border-radius: 0 var(--card-radius) var(--card-radius) 0;
+            color: var(--text-body);
         }
 
-        .modern-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .modern-card:hover::before {
-            left: 100%;
-        }
-
-        .modern-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 70px rgba(74, 144, 226, 0.25);
-            border-color: var(--ai-cyan);
-        }
-
-        .game-card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 15px 50px rgba(74, 144, 226, 0.15);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            display: block;
-            position: relative;
-            border: 2px solid rgba(74, 144, 226, 0.1);
-        }
-
-        .game-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(168, 85, 247, 0.05));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .game-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(74, 144, 226, 0.3);
-            text-decoration: none;
-            border-color: var(--ai-cyan);
-        }
-
-        .game-card:hover::after {
-            opacity: 1;
-        }
-
-        .game-card-header {
-            background: linear-gradient(135deg, var(--sky-blue), var(--deep-sky));
-            color: white;
-            padding: 2.5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-card-header h3 {
-            margin: 0;
-            font-size: 2rem;
+        .about-note-title {
+            margin-bottom: 0.6rem;
+            color: var(--deep-sky);
+            font-size: 0.95rem;
             font-weight: 700;
         }
 
-        .game-card-body {
-            padding: 2rem;
+        .about-note p {
+            margin-bottom: 0;
+            line-height: 1.95;
         }
 
-        .game-card-body p {
+        .about-note strong {
+            color: var(--text-dark);
+        }
+
+        /* 活動実績（年表） */
+        .achievement-list {
+            overflow: hidden;
+            background: white;
+            border: var(--card-border);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+        }
+
+        .achievement-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: baseline;
+            padding: 1.35rem clamp(1.25rem, 2.5vw, 2rem);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .achievement-date {
+            flex: 0 0 7.5rem;
+            color: var(--sky-blue);
+            font-weight: 700;
+        }
+
+        .achievement-text {
             color: var(--text-body);
+            line-height: 1.8;
+        }
+
+        .achievement-note {
+            display: block;
+            margin-top: 0.2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* 開発中タイトルのショーケース */
+        .showcase {
+            display: grid;
+            overflow: hidden;
+            background: white;
+            border: var(--card-border);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.4s ease;
+        }
+
+        .showcase:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        /* 左右2カラムにするのは、画像の高さが本文の高さを上回る幅になってから。
+           （下回ると画像の上下に帯が出るため） */
+        @media (min-width: 1400px) {
+            .showcase {
+                grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+            }
+        }
+
+        .showcase-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* 縦は詰めて、横は余裕を持たせる */
+            padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.5rem, 2.6vw, 2.75rem);
+        }
+
+        .showcase-eyebrow {
+            display: inline-flex;
+            align-self: flex-start;
+            margin-bottom: 0.85rem;
+            padding: 0.3rem 0.9rem;
+            color: var(--deep-sky);
+            background: #eaf4ff;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        .showcase-body h3 {
+            margin-bottom: 0.85rem;
+            font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .showcase-body p {
+            max-width: 28em;
+            margin-bottom: 1.35rem;
+            color: var(--text-body);
+            font-size: 1.02rem;
+            line-height: 1.85;
+        }
+
+        .game-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
             margin-bottom: 1.5rem;
         }
 
-        .game-card-body img {
-            border-radius: 16px;
+        /* スクリーンショットはスライド形式。16:9固定なのでトリミングされない */
+        .showcase-media {
+            display: grid;
+            align-content: center;
+            background: var(--deep-sky);
+        }
+
+        .showcase-media img {
+            display: block;
             width: 100%;
-            height: auto;
-            margin-bottom: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 24px rgba(74, 144, 226, 0.2);
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
         }
 
-        .game-card:hover img {
-            transform: scale(1.05);
-            box-shadow: 0 12px 40px rgba(74, 144, 226, 0.3);
+        .showcase-media .carousel-control-prev,
+        .showcase-media .carousel-control-next {
+            width: 4rem;
+            opacity: 1;
+        }
+
+        .showcase-media .carousel-control-prev-icon,
+        .showcase-media .carousel-control-next-icon {
+            width: 2.4rem;
+            height: 2.4rem;
+            padding: 0.7rem;
+            background-color: rgba(16, 42, 82, 0.5);
+            background-size: 1rem;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .showcase-media .carousel-control-prev:hover .carousel-control-prev-icon,
+        .showcase-media .carousel-control-prev:focus .carousel-control-prev-icon,
+        .showcase-media .carousel-control-next:hover .carousel-control-next-icon,
+        .showcase-media .carousel-control-next:focus .carousel-control-next-icon {
+            background-color: rgba(16, 42, 82, 0.85);
+        }
+
+        .showcase-media .carousel-indicators {
+            margin-bottom: 0.9rem;
+        }
+
+        .showcase-media .carousel-indicators [data-bs-target] {
+            width: 9px;
+            height: 9px;
+            margin-right: 5px;
+            margin-left: 5px;
+            background-color: rgba(255, 255, 255, 0.55);
+            border: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px rgba(16, 42, 82, 0.35), 0 2px 6px rgba(0, 0, 0, 0.35);
+            opacity: 1;
+        }
+
+        .showcase-media .carousel-indicators .active {
+            background-color: #fff;
+        }
+
+        .game-meta span {
+            padding: 0.45rem 0.9rem;
+            color: var(--deep-sky);
+            background: #eaf4ff;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .game-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            min-width: min(21rem, 100%);
+        }
+
+        .game-action {
+            display: inline-flex;
+            gap: 0.55rem;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.4rem;
+            color: white;
+            background: linear-gradient(135deg, var(--sky-blue), var(--deep-sky));
+            border-radius: 999px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .game-action-steam {
+            background: linear-gradient(135deg, #1b2838, #2a475e);
+        }
+
+        .game-action:hover,
+        .game-action:focus {
+            color: white;
+            text-decoration: none;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(44, 90, 160, 0.25);
         }
 
         /* メンバーカード */
+        .member-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+        }
+
         .member-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(74, 144, 226, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            height: 100%;
             position: relative;
-            border: 1px solid rgba(74, 144, 226, 0.1);
             overflow: hidden;
+            height: 100%;
+            padding: 2rem;
+            background: white;
+            border: var(--card-border);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .member-card::before {
@@ -430,29 +532,29 @@
 
         .member-card:hover {
             transform: translateY(-12px);
-            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.2);
+            box-shadow: var(--card-shadow-hover);
             border-color: var(--sky-blue);
         }
 
         .member-header {
-            font-size: 1.6rem;
-            font-weight: 700;
+            position: relative;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
             margin-bottom: 1rem;
             color: var(--sky-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            position: relative;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .member-header a {
             color: var(--sky-blue);
-            transition: all 0.3s ease;
             display: inline-flex;
+            transition: all 0.3s ease;
         }
 
-        .member-header a:hover {
+        .member-header a:hover,
+        .member-header a:focus {
             color: var(--ai-cyan);
             transform: scale(1.3) rotate(360deg);
         }
@@ -464,7 +566,7 @@
 
         .member-card-inactive {
             background: rgba(255, 255, 255, 0.75);
-            box-shadow: 0 8px 30px rgba(100, 116, 139, 0.1);
+            box-shadow: 0 8px 30px rgba(100, 116, 139, 0.12);
         }
 
         .member-card-inactive::before {
@@ -483,7 +585,7 @@
 
         .member-status {
             width: fit-content;
-            margin: 0 auto 1rem;
+            margin-bottom: 1rem;
             padding: 0.25rem 0.75rem;
             color: var(--text-light);
             background: #e2e8f0;
@@ -492,100 +594,43 @@
             font-weight: 500;
         }
 
-        /* フッター */
-        footer {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 3rem 0;
-            text-align: center;
-            color: var(--text-light);
-            margin-top: 60px;
-            position: relative;
-            border-top: 1px solid rgba(74, 144, 226, 0.2);
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--ai-cyan), var(--sky-blue), var(--ai-purple), transparent);
-        }
-
-        footer p {
-            margin-bottom: 0;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
         /* レスポンシブ */
-        @media (max-width: 768px) {
+        @media (max-width: 991.98px) {
             .hero-section {
-                padding: 100px 0 60px;
+                min-height: 0;
+                padding: 120px 0 90px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-visual-bar {
+                padding: 2.25rem 1rem 0.9rem;
+                font-size: 0.85rem;
             }
 
-            .hero-section h1 {
-                font-size: 2.8rem;
-                letter-spacing: 4px;
-            }
-
-            .hero-section h1::before,
-            .hero-section h1::after {
+            /* 幅が足りず折り返すと帯が高くなるため、ラベルは省いて矢印だけにする */
+            .hero-visual-cta-label {
                 display: none;
             }
 
-            .hero-section p {
-                font-size: 1.1rem;
+            .hero-visual-meta {
+                font-size: 0.82rem;
             }
 
-            .section-title {
-                font-size: 2rem;
+            .achievement-item {
+                display: block;
             }
 
-            .about-card {
-                padding: 2rem 1.5rem;
+            .achievement-date {
+                margin-bottom: 0.35rem;
             }
 
-            .about-card p {
-                font-size: 1rem;
-                line-height: 1.9;
+            .game-action {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
             }
-
-            .member-card {
-                margin-bottom: 1.5rem;
-            }
-
-            .navbar-brand {
-                font-size: 1.5rem;
-            }
-
-            .main-container {
-                border-radius: 30px 30px 0 0;
-            }
-        }
-
-        /* スクロールバーのカスタマイズ */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--sky-blue), var(--ai-cyan));
-            border-radius: 6px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--deep-sky), var(--sky-blue));
         }
     </style>
-
-    <link rel="stylesheet" href="site-policy.css?v=20260811-2">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8YXW37KQM9"></script>
@@ -600,7 +645,7 @@
 
 <body>
     <!-- ナビゲーション -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">Luftelli</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -611,9 +656,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="policyDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-scale-balanced"></i> 方針・規約
-                        </a>
+                            data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-scale-balanced"></i> 方針・規約</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="policyDropdown">
                             <li><a class="dropdown-item" href="terms.html"><i class="fas fa-file-contract me-2"></i>利用規約</a></li>
                             <li><a class="dropdown-item" href="privacy.html"><i class="fas fa-shield-halved me-2"></i>プライバシーポリシー</a></li>
@@ -622,25 +665,16 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">
-                            <i class="fas fa-envelope"></i> お問い合わせ
-                        </a>
+                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> お問い合わせ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ">
-                            <i class="fas fa-blog"></i> ブログ
-                        </a>
+                        <a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ"><i class="fas fa-blog"></i> ブログ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://x.com/luftelli" target="blank" title="X">
-                            <i class="fab fa-x-twitter"></i> X
-                        </a>
+                        <a class="nav-link" href="https://x.com/luftelli" target="blank" title="X"><i class="fab fa-x-twitter"></i> X</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.youtube.com/channel/UCWH0lqiuqRfSv5aRUU60-uw"
-                            target="blank" title="YouTube">
-                            <i class="fab fa-youtube"></i> YouTube
-                        </a>
+                        <a class="nav-link" href="https://www.youtube.com/channel/UCWH0lqiuqRfSv5aRUU60-uw" target="blank" title="YouTube"><i class="fab fa-youtube"></i> YouTube</a>
                     </li>
                 </ul>
             </div>
@@ -649,9 +683,31 @@
 
     <!-- ヒーローセクション -->
     <section class="hero-section">
-        <div class="container">
-            <h1>Luftelli</h1>
-            <p>懐かしさの先に、新しい遊びを。</p>
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <p class="hero-eyebrow">ゲーム開発サークル</p>
+                <h1>Luftelli</h1>
+                <p class="hero-lead">懐かしさの先に、新しい遊びを。</p>
+                <p class="hero-text">
+                    自分たちが本当に遊びたいと思えるゲームを作るために集まった開発サークルです。
+                    現在はオンライン対戦型3Dシューティング「光影の塔」を制作しています。
+                </p>
+            </div>
+            <a class="hero-visual" href="#current-project" aria-label="現在開発中のタイトル「光影の塔」の詳細を見る">
+                <img src="images/ctm_header.jpg" alt="光影の塔 キービジュアル">
+                <span class="hero-visual-bar">
+                    <span class="hero-visual-status">
+                        <span class="hero-visual-badge">現在開発中</span>
+                        <span class="hero-visual-meta">
+                            <i class="fas fa-calendar" aria-hidden="true"></i>2026年公開予定
+                        </span>
+                    </span>
+                    <span class="hero-visual-cta">
+                        <span class="hero-visual-cta-label">詳しく見る</span>
+                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                    </span>
+                </span>
+            </a>
         </div>
     </section>
 
@@ -659,44 +715,124 @@
     <div class="main-container">
         <div class="container">
             <!-- サークル紹介 -->
-            <section class="section">
+            <section class="section" id="about">
                 <h2 class="section-title">Luftelliについて</h2>
-                <div class="about-card">
-                    <p>
-                        Luftelliは、大学院時代にゲーム好きの同期が集まり、
-                        <strong>「かつて夢中になったゲームで味わったような体験を、自分たちの手で作りたい」</strong>と
-                        考えたことをきっかけに始まったゲーム開発サークルです。特定のジャンルに限定せず、
-                        メンバー自身が本当に遊んでみたいと思うアイデアを形にし、作品として継続的に公開することを目指しています。
-                    </p>
-                    <p>
-                        メンバーが人工知能を研究していた経験を生かし、現在はAIをゲーム開発に活用しています。
-                        将来的には、AIそのものを遊びやキャラクターとして体験できる作品にも挑戦していきます。
-                    </p>
-                    <p>
-                        「Luftelli」という名前は、設立当時に制作していた空を飛ぶゲームと、メンバーの研究分野に由来します。
-                        <strong>「Luft（空）」</strong>と<strong>「Intelligence（知能）」</strong>を組み合わせて名付けました。
-                    </p>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <p>
+                            Luftelliは、大学院時代にゲーム好きの同期が集まり、
+                            <strong>「かつて夢中になったゲームで味わったような体験を、自分たちの手で作りたい」</strong>と
+                            考えたことをきっかけに始まったゲーム開発サークルです。特定のジャンルに限定せず、
+                            メンバー自身が本当に遊んでみたいと思うアイデアを形にすることを目指しています。
+                        </p>
+                        <p>
+                            現在は、その思いを形にする中心プロジェクトとして、<strong>「光影の塔」</strong>の完成・公開に向けて開発を続けています。
+                        </p>
+                    </div>
+                    <aside class="notice-box about-note">
+                        <p class="about-note-title">サークル名の由来</p>
+                        <p>
+                            設立当時に開発を始めた「光影の塔」は空を飛べるゲームで、
+                            メンバーは人工知能に関する研究をしていました。そこから
+                            <strong>Luft（空）</strong>と<strong>Intelligence（知能）</strong>を
+                            組み合わせて名付けています。
+                        </p>
+                    </aside>
                 </div>
             </section>
 
-            <!-- 制作中のゲーム -->
+            <!-- 現在開発中のタイトル -->
+            <section class="section" id="current-project">
+                <h2 class="section-title">現在開発中のタイトル</h2>
+                <p class="section-intro">
+                    Luftelliは現在、オンライン対戦型3Dシューティング「光影の塔」の開発に注力しています。
+                    まずはこの一作を皆さまに届けることを目標に、2026年の公開に向けて開発中です。
+                </p>
+                <article class="showcase">
+                    <div class="showcase-media">
+                        <div id="shotCarousel" class="carousel slide" data-bs-ride="carousel"
+                            data-bs-interval="6000">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#shotCarousel" data-bs-slide-to="0"
+                                    class="active" aria-current="true" aria-label="スクリーンショット1"></button>
+                                <button type="button" data-bs-target="#shotCarousel" data-bs-slide-to="1"
+                                    aria-label="スクリーンショット2"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="images/ss1.jpg" alt="光影の塔のゲーム画面（対戦中の空中戦）">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="images/ss2.jpg" alt="光影の塔のゲーム画面（塔の周辺）">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#shotCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">前のスクリーンショット</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#shotCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">次のスクリーンショット</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="showcase-body">
+                        <span class="showcase-eyebrow">開発中</span>
+                        <h3>光影の塔</h3>
+                        <p>光と影の2チームに分かれて戦うオンライン対戦型3Dシューティング。空を飛び回りながら、相手チームの塔を目指します。</p>
+                        <div class="game-meta" aria-label="公開情報">
+                            <span><i class="fas fa-calendar me-2" aria-hidden="true"></i>2026年公開予定</span>
+                            <span><i class="fab fa-windows me-2" aria-hidden="true"></i>Windows</span>
+                            <span><i class="fas fa-users me-2" aria-hidden="true"></i>1～8人</span>
+                        </div>
+                        <div class="game-actions">
+                            <a href="https://store.steampowered.com/app/1822700/" class="game-action game-action-steam"
+                                target="blank">
+                                <i class="fab fa-steam" aria-hidden="true"></i>
+                                Steamでウィッシュリストに追加
+                            </a>
+                            <a href="https://koueinotou.luftelli.com" class="game-action" target="blank">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                                公式サイトを見る
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 最新情報・活動実績 -->
+            <!-- 活動実績 -->
             <section class="section">
-                <h2 class="section-title">制作中のゲーム</h2>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <a href="https://koueinotou.luftelli.com" class="game-card" target="blank">
-                            <div class="game-card-header">
-                                <h3>光影の塔</h3>
-                            </div>
-                            <div class="game-card-body">
-                                <p>光と影の2チームに分かれて戦うオンライン対戦型3Dシューティング</p>
-                                <img src="images/ctm_header.jpg" alt="光影の塔">
-                                <p class="text-center mb-0">
-                                    <strong>詳細は公式サイトへ！</strong>
-                                    <i class="fas fa-external-link-alt ms-2"></i>
-                                </p>
-                            </div>
-                        </a>
+                <h2 class="section-title">活動実績</h2>
+                <div class="achievement-list">
+                    <div class="achievement-item">
+                        <time class="achievement-date" datetime="2026-08">2026年8月</time>
+                        <div class="achievement-text">規約・方針を公開しました。</div>
+                    </div>
+                    <div class="achievement-item">
+                        <time class="achievement-date" datetime="2025-11">2025年11月</time>
+                        <div class="achievement-text">
+                            デジゲー博2025に「光影の塔」を出展しました。
+                            <span class="achievement-note">デジゲー博には2017年から毎年出展しています。</span>
+                        </div>
+                    </div>
+                    <div class="achievement-item">
+                        <time class="achievement-date" datetime="2022-06">2022年6月</time>
+                        <div class="achievement-text">IGC2022に「光影の塔」を出展しました。</div>
+                    </div>
+                    <div class="achievement-item">
+                        <time class="achievement-date" datetime="2022-01">2022年1月</time>
+                        <div class="achievement-text">「光影の塔」のSteamストアページを公開しました。</div>
+                    </div>
+                    <div class="achievement-item">
+                        <time class="achievement-date" datetime="2017-11">2017年11月</time>
+                        <div class="achievement-text">デジゲー博に「光影の塔」を初出展しました。</div>
+                    </div>
+                    <div class="achievement-item">
+                        <time class="achievement-date" datetime="2017-05">2017年5月</time>
+                        <div class="achievement-text">サークルを設立し、「光影の塔」の開発を開始しました。</div>
                     </div>
                 </div>
             </section>
@@ -704,59 +840,49 @@
             <!-- サークル情報 -->
             <section class="section">
                 <h2 class="section-title">メンバー</h2>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-md-6 col-lg-4 col-xl">
-                        <div class="member-card">
-                            <div class="member-header">
-                                Cdec
-                                <a href="https://x.com/CdecPGL" target="blank" title="X">
-                                    <i class="fab fa-x-twitter"></i>
-                                </a>
-                            </div>
-                            <div class="member-text">
-                                サークル代表。<br>任天堂のゲームが好き。
-                            </div>
+                <div class="member-grid">
+                    <div class="member-card">
+                        <div class="member-header">
+                            Cdec
+                            <a href="https://x.com/CdecPGL" target="blank" title="X">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="member-text">
+                            サークル代表。<br>任天堂のゲームが好き。
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 col-xl">
-                        <div class="member-card">
-                            <div class="member-header">
-                                Lui
-                            </div>
-                            <div class="member-text">
-                                スマブラマスター。<br>略してSBM。
-                            </div>
+                    <div class="member-card">
+                        <div class="member-header">
+                            Lui
+                        </div>
+                        <div class="member-text">
+                            スマブラマスター。<br>略してSBM。
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 col-xl">
-                        <div class="member-card">
-                            <div class="member-header">
-                                Van
-                            </div>
-                            <div class="member-text">
-                                遊戯王が好き。<br>車も好き。
-                            </div>
+                    <div class="member-card">
+                        <div class="member-header">
+                            Van
+                        </div>
+                        <div class="member-text">
+                            遊戯王が好き。<br>車も好き。
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 col-xl">
-                        <div class="member-card">
-                            <div class="member-header">
-                                Zip
-                            </div>
-                            <div class="member-text">
-                                サークルで最年少。<br>運動が得意。
-                            </div>
+                    <div class="member-card">
+                        <div class="member-header">
+                            Zip
+                        </div>
+                        <div class="member-text">
+                            サークルで最年少。<br>運動が得意。
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 col-xl">
-                        <div class="member-card member-card-inactive">
-                            <div class="member-header">
-                                S丼
-                            </div>
-                            <div class="member-status">現在は活動休止中</div>
-                            <div class="member-text">
-                                サークル設立発案者。<br>エアライドマスター。略してエアマス。
-                            </div>
+                    <div class="member-card member-card-inactive">
+                        <div class="member-header">
+                            S丼
+                        </div>
+                        <div class="member-status">現在は活動休止中</div>
+                        <div class="member-text">
+                            サークル設立発案者。<br>エアライドマスター。略してエアマス。
                         </div>
                     </div>
                 </div>
@@ -782,10 +908,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    
-    <!-- 動的に現在の西暦を表示 -->
+
     <script>
+        // 動的に現在の西暦を表示
         document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        // アニメーションを減らす設定の場合はスクリーンショットの自動送りを止める
+        // （Bootstrapのdata-api初期化はDOMContentLoaded時なので、それより前に属性を外す）
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.getElementById('shotCarousel').removeAttribute('data-bs-ride');
+        }
     </script>
 </body>
 
