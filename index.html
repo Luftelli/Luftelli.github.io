@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Luftelli公式ページ</title>
-    <meta name="description" content="ゲーム制作サークルLuftelliの公式ページです">
+    <title>Luftelli（ルフテリ）公式ページ</title>
+    <meta name="description" content="ゲーム制作サークルLuftelli（ルフテリ）の公式ページです">
 
     <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,7 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="site-policy.css?v=20260812-4">
+    <link rel="stylesheet" href="site-policy.css?v=20260812-5">
 
     <!-- トップページ固有のスタイル。
          配色・背景・コンテナ幅・カードの共通スタイルは site-policy.css の変数を使う -->
@@ -36,7 +36,7 @@
                上下の余白はpaddingで決める（上は固定ヘッダー分を含む） */
             min-height: min(70vh, 720px);
             padding: 140px 0 120px;
-            color: white;
+            color: var(--text-on-dark);
         }
 
         .hero-grid {
@@ -60,7 +60,7 @@
             gap: 0.9rem;
             align-items: center;
             margin-bottom: 1.2rem;
-            color: rgba(255, 255, 255, 0.85);
+            color: var(--text-on-dark-muted);
             font-size: 0.9rem;
             font-weight: 500;
             letter-spacing: 0.2em;
@@ -82,6 +82,17 @@
             text-shadow: 0 4px 24px rgba(0, 0, 0, 0.22);
         }
 
+        .hero-section h1 ruby {
+            ruby-align: center;
+        }
+
+        .hero-section h1 rt {
+            font-size: clamp(0.75rem, 0.16em, 1rem);
+            font-weight: 500;
+            letter-spacing: 0.4em;
+            line-height: 1;
+        }
+
         .hero-lead {
             margin-bottom: 1rem;
             font-size: clamp(1.2rem, 2.2vw, 1.7rem);
@@ -94,7 +105,7 @@
             /* 左カラムの幅に対して狭すぎると、右のキービジュアルとの間が空いて見える */
             max-width: 38em;
             margin-bottom: 0;
-            color: rgba(255, 255, 255, 0.92);
+            color: var(--text-on-dark-muted);
             font-weight: 300;
             line-height: 2;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
@@ -156,7 +167,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 3rem 1.35rem 1.15rem;
-            color: white;
+            color: var(--text-on-dark);
             background: linear-gradient(180deg, transparent, rgba(8, 26, 56, 0.88));
         }
 
@@ -312,7 +323,7 @@
 
         .achievement-date {
             flex: 0 0 7.5rem;
-            color: var(--sky-blue);
+            color: var(--interactive);
             font-weight: 700;
         }
 
@@ -364,8 +375,8 @@
             align-self: flex-start;
             margin-bottom: 0.85rem;
             padding: 0.3rem 0.9rem;
-            color: var(--deep-sky);
-            background: #eaf4ff;
+            color: var(--interactive);
+            background: var(--accent-surface);
             border-radius: 999px;
             font-size: 0.85rem;
             font-weight: 700;
@@ -454,8 +465,8 @@
 
         .game-meta span {
             padding: 0.45rem 0.9rem;
-            color: var(--deep-sky);
-            background: #eaf4ff;
+            color: var(--interactive);
+            background: var(--accent-surface);
             border: 1px solid rgba(74, 144, 226, 0.2);
             border-radius: 999px;
             font-size: 0.9rem;
@@ -475,8 +486,8 @@
             align-items: center;
             justify-content: center;
             padding: 0.75rem 1.4rem;
-            color: white;
-            background: linear-gradient(135deg, var(--sky-blue), var(--deep-sky));
+            color: var(--text-on-dark);
+            background: linear-gradient(135deg, var(--interactive), var(--interactive-hover));
             border-radius: 999px;
             font-weight: 700;
             text-decoration: none;
@@ -489,7 +500,7 @@
 
         .game-action:hover,
         .game-action:focus {
-            color: white;
+            color: var(--text-on-dark);
             text-decoration: none;
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(44, 90, 160, 0.25);
@@ -542,20 +553,20 @@
             gap: 0.5rem;
             align-items: center;
             margin-bottom: 1rem;
-            color: var(--sky-blue);
+            color: var(--interactive);
             font-size: 1.5rem;
             font-weight: 700;
         }
 
         .member-header a {
-            color: var(--sky-blue);
+            color: var(--interactive);
             display: inline-flex;
             transition: all 0.3s ease;
         }
 
         .member-header a:hover,
         .member-header a:focus {
-            color: var(--ai-cyan);
+            color: var(--interactive-hover);
             transform: scale(1.3) rotate(360deg);
         }
 
@@ -587,7 +598,7 @@
             width: fit-content;
             margin-bottom: 1rem;
             padding: 0.25rem 0.75rem;
-            color: var(--text-light);
+            color: var(--text-body);
             background: #e2e8f0;
             border-radius: 999px;
             font-size: 0.75rem;
@@ -686,7 +697,7 @@
         <div class="container hero-grid">
             <div class="hero-copy">
                 <p class="hero-eyebrow">ゲーム開発サークル</p>
-                <h1>Luftelli</h1>
+                <h1><ruby>Luftelli<rt>ルフテリ</rt></ruby></h1>
                 <p class="hero-lead">懐かしさの先に、新しい遊びを。</p>
                 <p class="hero-text">
                     自分たちが本当に遊びたいと思えるゲームを作るために集まった開発サークルです。
@@ -720,7 +731,7 @@
                 <div class="about-grid">
                     <div class="about-card">
                         <p>
-                            Luftelliは、大学院時代にゲーム好きの同期が集まり、
+                            Luftelli（ルフテリ）は、大学院時代にゲーム好きの同期が集まり、
                             <strong>「かつて夢中になったゲームで味わったような体験を、自分たちの手で作りたい」</strong>と
                             考えたことをきっかけに始まったゲーム開発サークルです。特定のジャンルに限定せず、
                             メンバー自身が本当に遊んでみたいと思うアイデアを形にすることを目指しています。
