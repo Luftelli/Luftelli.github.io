@@ -21,7 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="site-policy.css?v=20260812-5">
+    <link rel="stylesheet" href="site-policy.css?v=20260812-7">
 
     <!-- トップページ固有のスタイル。
          配色・背景・コンテナ幅・カードの共通スタイルは site-policy.css の変数を使う -->
@@ -36,7 +36,7 @@
                上下の余白はpaddingで決める（上は固定ヘッダー分を含む） */
             min-height: min(70vh, 720px);
             padding: 140px 0 120px;
-            color: var(--text-on-dark);
+            color: var(--text-on-sky);
         }
 
         .hero-grid {
@@ -60,17 +60,20 @@
             gap: 0.9rem;
             align-items: center;
             margin-bottom: 1.2rem;
-            color: var(--text-on-dark-muted);
+            color: var(--text-on-sky);
             font-size: 0.9rem;
             font-weight: 500;
             letter-spacing: 0.2em;
         }
 
         .hero-eyebrow::before {
-            content: '';
+            flex: none;
             width: clamp(2rem, 5vw, 3.5rem);
-            height: 2px;
-            background: linear-gradient(90deg, var(--ai-cyan), rgba(255, 255, 255, 0.4));
+            height: 3px;
+            content: '';
+            background: linear-gradient(90deg, var(--interactive), var(--accent-purple-text));
+            border-radius: var(--accent-line-radius);
+            box-shadow: var(--accent-line-shadow);
         }
 
         .hero-section h1 {
@@ -79,7 +82,7 @@
             font-weight: 700;
             line-height: 1.05;
             letter-spacing: 0.08em;
-            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.22);
+            text-shadow: none;
         }
 
         .hero-section h1 ruby {
@@ -98,17 +101,17 @@
             font-size: clamp(1.2rem, 2.2vw, 1.7rem);
             font-weight: 500;
             letter-spacing: 0.08em;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+            text-shadow: none;
         }
 
         .hero-text {
             /* 左カラムの幅に対して狭すぎると、右のキービジュアルとの間が空いて見える */
             max-width: 38em;
             margin-bottom: 0;
-            color: var(--text-on-dark-muted);
+            color: var(--text-on-sky);
             font-weight: 300;
             line-height: 2;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+            text-shadow: none;
         }
 
         /* ヒーローのキービジュアル（開発中タイトルへの導線を兼ねる） */
@@ -232,8 +235,8 @@
             width: 88px;
             height: 4px;
             background: linear-gradient(90deg, var(--ai-cyan), var(--sky-blue), var(--ai-purple));
-            border-radius: 2px;
-            box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+            border-radius: var(--accent-line-radius);
+            box-shadow: var(--accent-line-shadow);
         }
 
         .section-intro {

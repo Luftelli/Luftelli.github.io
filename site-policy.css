@@ -5,9 +5,9 @@
 :root {
     --sky-blue: #4A90E2;
     --deep-sky: #2C5AA0;
-    --hero-sky-light: #17658F;
-    --hero-sky: #245B91;
-    --hero-sky-deep: #183D6D;
+    --hero-sky-light: #BCEBFB;
+    --hero-sky: #76C9EF;
+    --hero-sky-deep: #4AA9DE;
     --cloud-white: #F0F4F8;
     --ai-cyan: #00D9FF;
     --ai-purple: #A855F7;
@@ -17,6 +17,7 @@
     --accent-surface: #EAF4FF;
     --text-on-dark: #FFFFFF;
     --text-on-dark-muted: #E8F3FC;
+    --text-on-sky: #102A4C;
     --text-dark: #1A202C;
     --text-body: #475569;
     --text-light: #64748B;
@@ -33,6 +34,8 @@
     --card-shadow: 0 12px 40px rgba(35, 79, 142, 0.1);
     --card-shadow-hover: 0 22px 60px rgba(35, 79, 142, 0.2);
     --panel-radius: 40px;
+    --accent-line-radius: 999px;
+    --accent-line-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
 }
 
 html {
@@ -305,7 +308,7 @@ body.policy-page {
     position: relative;
     z-index: 1;
     padding: 130px 0 90px;
-    color: var(--text-on-dark);
+    color: var(--text-on-sky);
     text-align: center;
 }
 
@@ -314,7 +317,7 @@ body.policy-page {
     font-size: clamp(2.4rem, 7vw, 4.2rem);
     font-weight: 700;
     letter-spacing: 0.12em;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.24);
+    text-shadow: none;
 }
 
 .policy-hero p {
@@ -323,8 +326,8 @@ body.policy-page {
     font-size: clamp(1rem, 2.4vw, 1.25rem);
     font-weight: 300;
     letter-spacing: 0.04em;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    color: var(--text-on-dark-muted);
+    color: var(--text-on-sky);
+    text-shadow: none;
 }
 
 /* 目次サイドバー + 本文の2カラム */
