@@ -25,17 +25,31 @@
 
 | 変数 | 用途 |
 |---|---|
-| `--shell-max` / `--shell-gutter` | `.container` の最大幅（1500px）と左右余白 |
+| `--shell-max` / `--shell-gutter` | `.container` の最大幅（1320px。本文上限1080pxと差を小さくし、ワイド画面で右側だけ空かないようにする）と左右余白 |
 | `--header-offset` | 固定ヘッダー分のアンカーオフセット（90px） |
 | `--card-radius` / `--card-border` / `--card-shadow` / `--card-shadow-hover` | カード・パネルの共通見た目 |
 | `--panel-radius` | 本文コンテナ（`.main-container` / `.policy-main`）の角丸 |
-| `--text-dark` / `--text-body` / `--text-light` | 文字色の3段階 |
+| `--hero-sky-light` / `--hero-sky` / `--hero-sky-deep` | 空のグラデーション。**サイトの青は全てこの色相から派生させる** |
+| `--sky-blue` / `--interactive` / `--interactive-hover` | 空色の同じ色相を濃くしたUI用の青（境界線・リンク・ボタン）。ロイヤルブルーやBootstrap既定の `#0d6efd` を混ぜない（`--bs-link-color` も上書き済み） |
+| `--sky-tint` / `--sky-tint-strong` | 空色の透明版。罫線・ホバー背景・表ヘッダなど薄い面に使う（`rgba(...)` の直書き禁止） |
+| `--cloud-white` | 補足ボックス・要約などの淡い面 |
+| `--text-dark` / `--text-body` / `--text-light` | 文字色の3段階（無彩色ではなく紺系から派生。白地で AA 4.5:1 以上を保つ） |
+| `--hero-bg` / `--band-bg` | ヒーロー背後の空のグラデーション / 本文側のさらに淡い空の帯（`.section-band`） |
 
 共通CSSが持つもの（個別ページで再定義しない）:
 
-- 背景（空のグラデーション、`body::before` の雲アニメ、`body::after` のグリッド）
-- ナビゲーション、フッター、スクロールバー
-- 本文コンテナ `.main-container, .policy-main`（両者は同一定義。上端のシマー線も共通）
+- 背景（空のグラデーション `--hero-bg` と、`body::before` の静かな雲）
+- ナビゲーション、フッター（スクロールバーはOS既定のまま。`::-webkit-scrollbar` で塗り替えない）
+- 本文コンテナ `.main-container, .policy-main`（両者は同一定義。`flex: 1` で本文が短いページでも
+  フッターを最下部に保つ）
+
+意図的に「使わない」もの（AI生成UIの定型を避けるため）:
+
+- ピル型（`border-radius: 999px`）のバッジ・チップ。公開情報などは `／` 区切りのテキストで並べる
+- 装飾目的のFont Awesomeアイコン（カレンダー・人数・ⓘなど）。ブランドアイコン（X・YouTube・Steam）と
+  外部リンク印は可
+- 日本語の小見出しへの `letter-spacing` の広げ、グラデーション文字、ガラス風ぼかし、光る線
+- 角丸は `--card-radius`（6px）の一種類に揃える
 
 ### ヘッダー
 
@@ -58,7 +72,8 @@
 
 意図的に揃えていない箇所:
 
-- ヒーロー: トップは `.hero-section`（左右2カラム＋キービジュアル）、下層は `.policy-hero`（中央寄せ）
+- ヒーロー: トップは `.hero-section`（左右2カラム＋キービジュアル）、下層は `.policy-hero`
+  （左寄せ。`.policy-hero-head` に h1 と制定日 `.policy-hero-meta` を並べ、`.policy-hero-lead` を下に置く）
 - 行間: 長文を読ませる規約ページのみ `body.policy-page { line-height: 1.9 }`
 
 ### HTMLの編集
@@ -70,8 +85,18 @@
 
 ### トップページ（index.html）の構成
 
-- **ヒーロー**: `.hero-grid` の左右2カラム（左=コピー＋CTA、右=キービジュアル `images/ctm_header.jpg`）。
-  lg未満では1カラムに折り返す。
+- **ヒーロー**: `.hero-grid` の左右2カラム（左=コピー、右=キービジュアル `images/ctm_header.jpg`）。
+  lg未満では1カラムに折り返す。キービジュアル下部のバーは「詳しく見る」の導線だけを持つ
+  （公開時期などの情報はショーケース側に一本化）。
+- **セクションの順序**: Luftelliについて → 現在開発中のタイトル（帯） → 活動実績 → メンバー。
+  ヘッダーのナビもこの順に並べる（全ページ共通のマークアップなので、変える時は6ファイル全部）。
+- **本文の各セクション**: `.main-container > section.section > .container` の構造。
+  `.container` はセクションごとに持つ（帯を全幅に敷けるようにするため）。
+  `.section-band` を付けたセクションだけ `--band-bg` の帯に載る（現在は「現在開発中のタイトル」）。
+  空色＝「光影の塔」の色として、ヒーローのキービジュアルとショーケースの2箇所だけに使う。
+  About・メンバーなど作品以外のセクションには帯を付けない。ページ末尾はフッターの淡い面
+  （`--cloud-white`）で閉じる。
+- **リード文**: `.section-intro` は見出しとカードの間に置く（カードの下に置くと帯の中で浮く）。
 - **Luftelliについて**: `.about-grid`（本文カード＋サークル名の由来カード）
 - **現在開発中のタイトル**: `.showcase`（左=スクリーンショットのスライド、右=情報とCTA）。
   スライドはBootstrapのCarousel（`#shotCarousel`）で、追加のライブラリは使っていない。
@@ -86,7 +111,7 @@
   2. 2カラム時の列比は `1.7fr : 1fr` で画像側を大きく取る
 
   素材の縦横比が16:9でない場合は `aspect-ratio` を素材に合わせること。
-- **最新情報／活動実績**: `.section-duo` で2つの `<section>` を横並びにする
+- **活動実績**: `.achievement-list`（年月＋本文の罫線リスト）
 - **メンバー**: `.member-grid`（`auto-fit` の自動折り返し。カード追加時のCSS変更は不要）
 
 ### 規約・方針ページの構成
@@ -152,7 +177,7 @@
 ```
 
 活動休止中のメンバーは `member-card member-card-inactive` とし、
-`<div class="member-status">現在は活動休止中</div>` を添える。
+`<div class="member-status">現在は活動休止中</div>` を添える（バッジではなく小さな補足テキストとして表示される）。
 
 ### 規約ページにセクションを追加
 

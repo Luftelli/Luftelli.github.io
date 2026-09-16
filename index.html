@@ -21,7 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="site-policy.css?v=20260812-7">
+    <link rel="stylesheet" href="site-policy.css?v=20260917-13">
 
     <!-- トップページ固有のスタイル。
          配色・背景・コンテナ幅・カードの共通スタイルは site-policy.css の変数を使う -->
@@ -32,10 +32,9 @@
             z-index: 1;
             display: flex;
             align-items: center;
-            /* min-heightを大きくすると画面が高いほど余白だけが増えるので控えめにし、
-               上下の余白はpaddingで決める（上は固定ヘッダー分を含む） */
-            min-height: min(70vh, 720px);
-            padding: 140px 0 120px;
+            /* 作品画像とコピーに合わせた余白 */
+            min-height: 0;
+            padding: var(--hero-padding);
             color: var(--text-on-sky);
         }
 
@@ -47,33 +46,15 @@
 
         @media (min-width: 992px) {
             .hero-grid {
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
             }
         }
 
-        .hero-copy {
-            animation: fadeInUp 0.8s ease;
-        }
-
         .hero-eyebrow {
-            display: flex;
-            gap: 0.9rem;
-            align-items: center;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             color: var(--text-on-sky);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
-            letter-spacing: 0.2em;
-        }
-
-        .hero-eyebrow::before {
-            flex: none;
-            width: clamp(2rem, 5vw, 3.5rem);
-            height: 3px;
-            content: '';
-            background: linear-gradient(90deg, var(--interactive), var(--accent-purple-text));
-            border-radius: var(--accent-line-radius);
-            box-shadow: var(--accent-line-shadow);
         }
 
         .hero-section h1 {
@@ -82,7 +63,6 @@
             font-weight: 700;
             line-height: 1.05;
             letter-spacing: 0.08em;
-            text-shadow: none;
         }
 
         .hero-section h1 ruby {
@@ -101,7 +81,6 @@
             font-size: clamp(1.2rem, 2.2vw, 1.7rem);
             font-weight: 500;
             letter-spacing: 0.08em;
-            text-shadow: none;
         }
 
         .hero-text {
@@ -109,9 +88,9 @@
             max-width: 38em;
             margin-bottom: 0;
             color: var(--text-on-sky);
-            font-weight: 300;
+            /* 空色の上で細字は薄く見えるため、本文は400にする */
+            font-weight: 400;
             line-height: 2;
-            text-shadow: none;
         }
 
         /* ヒーローのキービジュアル（開発中タイトルへの導線を兼ねる） */
@@ -119,18 +98,16 @@
             position: relative;
             display: block;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: var(--card-border);
             border-radius: var(--card-radius);
-            box-shadow: 0 30px 70px rgba(16, 42, 82, 0.4);
+            box-shadow: var(--hero-shadow);
             text-decoration: none;
-            animation: fadeInUp 0.8s ease 0.15s backwards;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+            transition: opacity 0.2s ease;
         }
 
         .hero-visual:hover,
         .hero-visual:focus-visible {
-            transform: translateY(-8px);
-            box-shadow: 0 40px 90px rgba(16, 42, 82, 0.5);
+            opacity: 0.92;
         }
 
         .hero-visual img {
@@ -140,46 +117,18 @@
             object-fit: cover;
         }
 
-        /* バッジは作品ロゴに重ならないよう下部バーにまとめる */
-        .hero-visual-status {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem 0.8rem;
-            align-items: center;
-        }
-
-        .hero-visual-badge {
-            display: inline-flex;
-            padding: 0.3rem 0.85rem;
-            color: var(--deep-sky);
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-        }
-
+        /* 下部バーは導線だけ。公開時期などの情報はショーケース側に一本化する */
         .hero-visual-bar {
             position: absolute;
             right: 0;
             bottom: 0;
             left: 0;
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem 1rem;
             align-items: center;
-            justify-content: space-between;
-            padding: 3rem 1.35rem 1.15rem;
+            justify-content: flex-end;
+            padding: 2.5rem 1.35rem 1.1rem;
             color: var(--text-on-dark);
-            background: linear-gradient(180deg, transparent, rgba(8, 26, 56, 0.88));
-        }
-
-        .hero-visual-meta {
-            display: inline-flex;
-            gap: 0.5rem;
-            align-items: center;
-            font-size: 0.9rem;
-            font-weight: 500;
+            background: var(--hero-overlay);
         }
 
         .hero-visual-cta {
@@ -198,20 +147,9 @@
             transform: translateY(3px);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* セクション */
         .section {
-            margin-bottom: clamp(4rem, 7vw, 7rem);
+            margin-bottom: var(--section-gap);
             scroll-margin-top: calc(var(--header-offset) + 1rem);
         }
 
@@ -219,28 +157,32 @@
             margin-bottom: 0;
         }
 
+        /* 「現在開発中のタイトル」を昼の空の帯に載せ、白い一枚板にリズムをつける */
+        .section-band {
+            padding: calc(var(--section-gap) * 0.75) 0;
+            background: var(--band-bg);
+        }
+
+        .section-band .notice-box {
+            background: var(--surface);
+        }
+
         .section-title {
             position: relative;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1rem;
-            font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+            margin-bottom: 2rem;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
             font-weight: 700;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 88px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--ai-cyan), var(--sky-blue), var(--ai-purple));
-            border-radius: var(--accent-line-radius);
-            box-shadow: var(--accent-line-shadow);
+        /* リード文が続く場合は見出しとの間を詰める */
+        .section-title:has(+ .section-intro) {
+            margin-bottom: 1rem;
         }
 
+        /* セクション見出しとカードの間のリード文。帯の締めはカード側のCTAに任せる */
         .section-intro {
-            margin: -1rem 0 2.5rem;
+            margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+            max-width: 1080px;
             color: var(--text-body);
             font-size: 1.05rem;
             line-height: 1.9;
@@ -249,26 +191,12 @@
         /* サークル紹介 */
         .about-grid {
             display: grid;
-            gap: clamp(1.75rem, 3vw, 3rem);
+            max-width: 1080px;
+            gap: var(--space-medium);
             align-items: start;
         }
 
-        @media (min-width: 992px) {
-            .about-grid {
-                grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-            }
-        }
-
-        .about-card {
-            padding: clamp(1.75rem, 3vw, 3rem);
-            background: white;
-            border: var(--card-border);
-            border-radius: var(--card-radius);
-            box-shadow: var(--card-shadow);
-        }
-
         .about-card p {
-            max-width: 46em;
             margin-bottom: 1.5rem;
             color: var(--text-body);
             font-size: 1.05rem;
@@ -283,19 +211,10 @@
             color: var(--text-dark);
         }
 
-        /* サークル名の由来は補足扱い。規約ページと共通の .notice-box を流用する */
+        /* サークル名の由来は本文の下に控えめな補足として添える */
         .about-note {
-            margin-top: 0;
-            padding: clamp(1.25rem, 2.5vw, 1.6rem) clamp(1.25rem, 2.5vw, 1.75rem);
-            border-radius: 0 var(--card-radius) var(--card-radius) 0;
             color: var(--text-body);
-        }
-
-        .about-note-title {
-            margin-bottom: 0.6rem;
-            color: var(--deep-sky);
             font-size: 0.95rem;
-            font-weight: 700;
         }
 
         .about-note p {
@@ -303,25 +222,18 @@
             line-height: 1.95;
         }
 
-        .about-note strong {
-            color: var(--text-dark);
-        }
-
         /* 活動実績（年表） */
         .achievement-list {
-            overflow: hidden;
-            background: white;
-            border: var(--card-border);
-            border-radius: var(--card-radius);
-            box-shadow: var(--card-shadow);
+            max-width: 1080px;
+            border-top: var(--rule);
         }
 
         .achievement-item {
             display: flex;
             gap: 1.5rem;
             align-items: baseline;
-            padding: 1.35rem clamp(1.25rem, 2.5vw, 2rem);
-            border-bottom: 1px solid #e2e8f0;
+            padding: var(--row-padding);
+            border-bottom: var(--rule);
         }
 
         .achievement-date {
@@ -346,15 +258,12 @@
         .showcase {
             display: grid;
             overflow: hidden;
-            background: white;
-            border: var(--card-border);
+            background: var(--surface);
+            /* 帯の上なので通常のカード枠より一段濃くする */
+            border: 1px solid var(--sky-tint-strong);
             border-radius: var(--card-radius);
             box-shadow: var(--card-shadow);
             transition: box-shadow 0.4s ease;
-        }
-
-        .showcase:hover {
-            box-shadow: var(--card-shadow-hover);
         }
 
         /* 左右2カラムにするのは、画像の高さが本文の高さを上回る幅になってから。
@@ -373,19 +282,6 @@
             padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.5rem, 2.6vw, 2.75rem);
         }
 
-        .showcase-eyebrow {
-            display: inline-flex;
-            align-self: flex-start;
-            margin-bottom: 0.85rem;
-            padding: 0.3rem 0.9rem;
-            color: var(--interactive);
-            background: var(--accent-surface);
-            border-radius: 999px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-        }
-
         .showcase-body h3 {
             margin-bottom: 0.85rem;
             font-size: clamp(1.8rem, 2.6vw, 2.3rem);
@@ -401,11 +297,21 @@
             line-height: 1.85;
         }
 
+        /* 公開情報はチップにせず、区切り文字で並べた1行のテキストにする */
         .game-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.55rem;
             margin-bottom: 1.5rem;
+            padding: 0;
+            color: var(--text-body);
+            list-style: none;
+            font-size: 0.95rem;
+        }
+
+        .game-meta li + li::before {
+            margin: 0 0.6em;
+            color: var(--text-light);
+            content: '／';
         }
 
         /* スクリーンショットはスライド形式。16:9固定なのでトリミングされない */
@@ -466,16 +372,6 @@
             background-color: #fff;
         }
 
-        .game-meta span {
-            padding: 0.45rem 0.9rem;
-            color: var(--interactive);
-            background: var(--accent-surface);
-            border: 1px solid rgba(74, 144, 226, 0.2);
-            border-radius: 999px;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
         .game-actions {
             display: flex;
             flex-direction: column;
@@ -490,26 +386,32 @@
             justify-content: center;
             padding: 0.75rem 1.4rem;
             color: var(--text-on-dark);
-            background: linear-gradient(135deg, var(--interactive), var(--interactive-hover));
-            border-radius: 999px;
+            background: var(--interactive);
+            border-radius: var(--button-radius);
             font-weight: 700;
             text-decoration: none;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .game-action-steam {
-            background: linear-gradient(135deg, #1b2838, #2a475e);
         }
 
         .game-action:hover,
         .game-action:focus {
             color: var(--text-on-dark);
             text-decoration: none;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(44, 90, 160, 0.25);
+            background: var(--interactive-hover);
         }
 
-        /* メンバーカード */
+        .game-action:not(.game-action-steam) {
+            color: var(--interactive);
+            background: transparent;
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+        }
+
+        .game-action:not(.game-action-steam):hover {
+            color: var(--interactive-hover);
+        }
+
+        /* メンバー一覧 */
         .member-grid {
             display: grid;
             gap: 1.5rem;
@@ -517,37 +419,9 @@
         }
 
         .member-card {
-            position: relative;
-            overflow: hidden;
             height: 100%;
-            padding: 2rem;
-            background: white;
-            border: var(--card-border);
-            border-radius: var(--card-radius);
-            box-shadow: var(--card-shadow);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .member-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--ai-cyan), var(--sky-blue), var(--ai-purple));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .member-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .member-card:hover {
-            transform: translateY(-12px);
-            box-shadow: var(--card-shadow-hover);
-            border-color: var(--sky-blue);
+            padding: var(--row-padding);
+            border-top: var(--rule);
         }
 
         .member-header {
@@ -570,22 +444,11 @@
         .member-header a:hover,
         .member-header a:focus {
             color: var(--interactive-hover);
-            transform: scale(1.3) rotate(360deg);
         }
 
         .member-text {
             color: var(--text-body);
             line-height: 1.8;
-        }
-
-        .member-card-inactive {
-            background: rgba(255, 255, 255, 0.75);
-            box-shadow: 0 8px 30px rgba(100, 116, 139, 0.12);
-        }
-
-        .member-card-inactive::before {
-            background: linear-gradient(90deg, #cbd5e1, #94a3b8);
-            transform: scaleX(1);
         }
 
         .member-card-inactive .member-header {
@@ -598,37 +461,23 @@
         }
 
         .member-status {
-            width: fit-content;
-            margin-bottom: 1rem;
-            padding: 0.25rem 0.75rem;
-            color: var(--text-body);
-            background: #e2e8f0;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
         }
 
         /* レスポンシブ */
         @media (max-width: 991.98px) {
             .hero-section {
                 min-height: 0;
-                padding: 120px 0 90px;
+                padding: var(--hero-mobile-padding);
             }
         }
 
         @media (max-width: 768px) {
             .hero-visual-bar {
-                padding: 2.25rem 1rem 0.9rem;
+                padding: 2rem 1rem 0.9rem;
                 font-size: 0.85rem;
-            }
-
-            /* 幅が足りず折り返すと帯が高くなるため、ラベルは省いて矢印だけにする */
-            .hero-visual-cta-label {
-                display: none;
-            }
-
-            .hero-visual-meta {
-                font-size: 0.82rem;
             }
 
             .achievement-item {
@@ -669,16 +518,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#current-project"><i class="fas fa-gamepad"></i> 光影の塔</a>
+                        <a class="nav-link" href="index.html#about">Luftelliについて</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html#about"><i class="fas fa-circle-info"></i> Luftelliについて</a>
+                        <a class="nav-link" href="index.html#current-project">光影の塔</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> お問い合わせ</a>
+                        <a class="nav-link" href="contact.html">お問い合わせ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ"><i class="fas fa-blog"></i> ブログ</a>
+                        <a class="nav-link" href="https://luftelli.blog.fc2.com/" target="blank" title="ブログ">ブログ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://x.com/luftelli" target="blank" title="X"><i class="fab fa-x-twitter"></i> X</a>
@@ -699,7 +548,7 @@
                 <h1><ruby>Luftelli<rt>ルフテリ</rt></ruby></h1>
                 <p class="hero-lead">懐かしさの先に、新しい遊びを。</p>
                 <p class="hero-text">
-                    オンライン対戦型3Dシューティング「光影の塔」を開発中。<br>
+                    オンライン対戦型3Dシューティング<span class="text-nowrap">「光影の塔」</span>を開発中。<br>
                     作り始めて、気が付けば10年……。10年？！<br>
                     <strong>今年、完成させます。</strong>
                 </p>
@@ -707,12 +556,6 @@
             <a class="hero-visual" href="#current-project" aria-label="現在開発中のタイトル「光影の塔」の詳細を見る">
                 <img src="images/ctm_header.jpg" alt="光影の塔 キービジュアル">
                 <span class="hero-visual-bar">
-                    <span class="hero-visual-status">
-                        <span class="hero-visual-badge">現在開発中</span>
-                        <span class="hero-visual-meta">
-                            <i class="fas fa-calendar" aria-hidden="true"></i>2026年公開予定
-                        </span>
-                    </span>
                     <span class="hero-visual-cta">
                         <span class="hero-visual-cta-label">詳しく見る</span>
                         <i class="fas fa-arrow-down" aria-hidden="true"></i>
@@ -724,9 +567,9 @@
 
     <!-- メインコンテンツ -->
     <div class="main-container">
-        <div class="container">
-            <!-- サークル紹介 -->
-            <section class="section" id="about">
+        <!-- サークル紹介 -->
+        <section class="section" id="about">
+            <div class="container">
                 <h2 class="section-title">Luftelliについて</h2>
                 <div class="about-grid">
                     <div class="about-card">
@@ -737,27 +580,28 @@
                             メンバー自身が本当に遊んでみたいと思うアイデアを形にすることを目指しています。
                         </p>
                         <p>
-                            現在は、その思いを形にする中心プロジェクトとして、<strong>「光影の塔」</strong>の完成・公開に向けて開発を続けています。
+                            現在は、その思いを形にする中心プロジェクトとして、<strong><span class="text-nowrap">「光影の塔」</span></strong>の完成・公開に向けて開発を続けています。
                             気が付けば開発開始から10年が経ち、全員社会人になってしまいました。それでも完成に向けて執念深く作り続けています。
                         </p>
                     </div>
-                    <aside class="notice-box about-note">
-                        <p class="about-note-title">サークル名の由来</p>
+                    <aside class="about-note" aria-label="サークル名の由来">
                         <p>
-                            設立当時に開発を始めた「光影の塔」は空を飛べるゲームで、
+                            設立当時に開発を始めた<span class="text-nowrap">「光影の塔」</span>は空を飛べるゲームで、
                             メンバーは人工知能に関する研究をしていました。そこから
-                            <strong>Luft（空）</strong>と<strong>Intelligence（知能）</strong>を
+                            Luft（空）とIntelligence（知能）を
                             組み合わせて名付けています。
                         </p>
                     </aside>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- 現在開発中のタイトル -->
-            <section class="section" id="current-project">
+        <!-- 現在開発中のタイトル -->
+        <section class="section section-band" id="current-project">
+            <div class="container">
                 <h2 class="section-title">現在開発中のタイトル</h2>
                 <p class="section-intro">
-                    Luftelliは現在、オンライン対戦型3Dシューティング「光影の塔」の開発に注力しています。
+                    Luftelliは現在、オンライン対戦型3Dシューティング<span class="text-nowrap">「光影の塔」</span>の開発に注力しています。
                     まずはこの一作を皆さまに届けることを目標に開発中です。
                     10年近く前進・後退・サイドステップを繰り返してきましたが、長年にわたる迷走に終止符を打ちました。
                     現在は完成に向けて残された作業を消化するのみで、2026年中に公開します。
@@ -793,14 +637,13 @@
                         </div>
                     </div>
                     <div class="showcase-body">
-                        <span class="showcase-eyebrow">開発中</span>
-                        <h3>光影の塔</h3>
+                        <h3><span class="text-nowrap">光影の塔</span></h3>
                         <p>光と影の2チームに分かれて戦うオンライン対戦型3Dシューティング。空を飛び回りながら、相手チームの塔を目指します。</p>
-                        <div class="game-meta" aria-label="公開情報">
-                            <span><i class="fas fa-calendar me-2" aria-hidden="true"></i>2026年公開予定</span>
-                            <span><i class="fab fa-windows me-2" aria-hidden="true"></i>Windows</span>
-                            <span><i class="fas fa-users me-2" aria-hidden="true"></i>1～8人</span>
-                        </div>
+                        <ul class="game-meta" aria-label="公開情報">
+                            <li>2026年公開予定</li>
+                            <li>Windows</li>
+                            <li>1～8人</li>
+                        </ul>
                         <div class="game-actions">
                             <a href="https://store.steampowered.com/app/1822700/" class="game-action game-action-steam"
                                 target="blank">
@@ -814,11 +657,12 @@
                         </div>
                     </div>
                 </article>
-            </section>
+            </div>
+        </section>
 
-            <!-- 最新情報・活動実績 -->
-            <!-- 活動実績 -->
-            <section class="section">
+        <!-- 活動実績 -->
+        <section class="section">
+            <div class="container">
                 <h2 class="section-title">活動実績</h2>
                 <div class="achievement-list">
                     <div class="achievement-item">
@@ -828,31 +672,33 @@
                     <div class="achievement-item">
                         <time class="achievement-date" datetime="2025-11">2025年11月</time>
                         <div class="achievement-text">
-                            デジゲー博2025に「光影の塔」を出展しました。
+                            デジゲー博2025に<span class="text-nowrap">「光影の塔」</span>を出展しました。
                             <span class="achievement-note">デジゲー博には2017年から毎年出展しています。</span>
                         </div>
                     </div>
                     <div class="achievement-item">
                         <time class="achievement-date" datetime="2022-06">2022年6月</time>
-                        <div class="achievement-text">IGC2022に「光影の塔」を出展しました。</div>
+                        <div class="achievement-text">IGC2022に<span class="text-nowrap">「光影の塔」</span>を出展しました。</div>
                     </div>
                     <div class="achievement-item">
                         <time class="achievement-date" datetime="2022-01">2022年1月</time>
-                        <div class="achievement-text">「光影の塔」のSteamストアページを公開しました。</div>
+                        <div class="achievement-text"><span class="text-nowrap">「光影の塔」</span>のSteamストアページを公開しました。</div>
                     </div>
                     <div class="achievement-item">
                         <time class="achievement-date" datetime="2017-11">2017年11月</time>
-                        <div class="achievement-text">デジゲー博に「光影の塔」を初出展しました。</div>
+                        <div class="achievement-text">デジゲー博に<span class="text-nowrap">「光影の塔」</span>を初出展しました。</div>
                     </div>
                     <div class="achievement-item">
                         <time class="achievement-date" datetime="2017-05">2017年5月</time>
-                        <div class="achievement-text">サークルを設立し、「光影の塔」の開発を開始しました。</div>
+                        <div class="achievement-text">サークルを設立し、<span class="text-nowrap">「光影の塔」</span>の開発を開始しました。</div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- サークル情報 -->
-            <section class="section">
+        <!-- メンバー -->
+        <section class="section">
+            <div class="container">
                 <h2 class="section-title">メンバー</h2>
                 <div class="member-grid">
                     <div class="member-card">
@@ -900,8 +746,8 @@
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </div>
 
     <!-- フッター -->
