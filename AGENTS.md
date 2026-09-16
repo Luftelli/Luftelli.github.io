@@ -1,192 +1,130 @@
-# Luftelli公式ページ - Copilot Instructions
+# Luftelli公式サイト — エージェント作業指針
 
-## プロジェクト概要
+このファイルはリポジトリ全体に適用する。ユーザーの明示的な指示を優先し、以下を通常の作業基準とする。
 
-ゲーム制作サークルLuftelliの公式静的ウェブサイト（GitHub Pages）。Bootstrap 5.3ベースのレスポンシブデザインで、画面幅を活かしたワイドレイアウトを採用。
+## 作業の進め方
 
-## アーキテクチャ
+- 依頼された変更を、調査・編集・必要な検証まで完了する。提案だけで止めない。
+- 最初に `git status --short` と対象ファイルを確認し、既存の未コミット変更を保持する。
+- 通常の実装判断は既存コードと本指針から決める。結果を大きく変える不明点だけを質問し、回答に依存しない作業は進める。既に許可された作業について再確認しない。
+- 変更は依頼の範囲に絞る。無関係な整形、依存更新、フレームワークやビルド工程の追加は行わない。
+- 構成説明と実装が異なる場合は関連箇所を確認する。説明に合わせるためだけにサイトを改変しない。
+- 検証は変更の影響に合わせる。必要な確認が通った後、理由なく検証を拡大・反復しない。
+- 完了時は日本語で、変更内容・検証結果・未確認事項を簡潔に報告する。未実施の確認を実施済みと書かない。
 
-- **静的サイト**: フレームワーク/ビルドツール不使用
-  - `index.html`: トップページ（レイアウトCSSはページ内の `<style>` に記述）
-  - `terms.html` / `privacy.html` / `content-guidelines.html` / `ai-policy.html` / `contact.html`: 方針・規約系ページ
-  - `site-policy.css`: 全ページ共通のCSS（ナビ、フッター、シェル幅、規約ページのレイアウト）
-- **ホスティング**: GitHub Pages（カスタムドメイン: luftelli.com via `CNAME`）
-- **スタイリング**: Bootstrap 5.3.2 + Font Awesome 6.4.2 + Noto Sans JP（CDN経由）
-- **アナリティクス**: Google Analytics（G-8YXW37KQM9）
-- **言語**: 日本語（`lang="ja"`）
+## プロジェクトと編集先
 
-## 重要な規約
+ゲーム制作サークルLuftelliの日本語公式サイト。ビルド不要の静的HTML/CSS/JavaScriptで、GitHub Pagesに公開する。
 
-### デザイン規約（全ページ共通）
-
-**`site-policy.css` が全ページ共通のスタイルシート**（規約ページ専用ではない）。
-`index.html` のページ内 `<style>` はトップページ固有のスタイルだけを持つ。
-**色・角丸・影・余白を個別ページに直書きしないこと。** 必ず `:root` の変数を使う。
-
-| 変数 | 用途 |
+| ファイル | 役割 |
 |---|---|
-| `--shell-max` / `--shell-gutter` | `.container` の最大幅（1320px。本文上限1080pxと差を小さくし、ワイド画面で右側だけ空かないようにする）と左右余白 |
-| `--header-offset` | 固定ヘッダー分のアンカーオフセット（90px） |
-| `--card-radius` / `--card-border` / `--card-shadow` / `--card-shadow-hover` | カード・パネルの共通見た目 |
-| `--panel-radius` | 本文コンテナ（`.main-container` / `.policy-main`）の角丸 |
-| `--hero-sky-light` / `--hero-sky` / `--hero-sky-deep` | 空のグラデーション。**サイトの青は全てこの色相から派生させる** |
-| `--sky-blue` / `--interactive` / `--interactive-hover` | 空色の同じ色相を濃くしたUI用の青（境界線・リンク・ボタン）。ロイヤルブルーやBootstrap既定の `#0d6efd` を混ぜない（`--bs-link-color` も上書き済み） |
-| `--sky-tint` / `--sky-tint-strong` | 空色の透明版。罫線・ホバー背景・表ヘッダなど薄い面に使う（`rgba(...)` の直書き禁止） |
-| `--cloud-white` | 補足ボックス・要約などの淡い面 |
-| `--text-dark` / `--text-body` / `--text-light` | 文字色の3段階（無彩色ではなく紺系から派生。白地で AA 4.5:1 以上を保つ） |
-| `--hero-bg` / `--band-bg` | ヒーロー背後の空のグラデーション / 本文側のさらに淡い空の帯（`.section-band`） |
+| `index.html` | トップページ。ページ内の `<style>` はトップ固有のレイアウトのみ |
+| `terms.html` / `privacy.html` / `content-guidelines.html` / `ai-policy.html` | 規約・方針ページ |
+| `contact.html` | お問い合わせページ |
+| `site-policy.css` | **全ページ共通**の変数、背景、ナビ、フッター、本文コンテナ、規約ページのレイアウト |
+| `images/` | 画像素材 |
+| `CNAME` | カスタムドメイン `luftelli.com` |
+| `.github/pull_request_template.md` | PRの書式。対応Issue番号が必須 |
+| `LICENSE` | CC BY-NC-ND 4.0（非商用・改変不可・クレジット表示必須）の全文 |
 
-共通CSSが持つもの（個別ページで再定義しない）:
+CDN依存はBootstrap 5.3.2（CSSとJS Bundle）、Font Awesome 6.4.2、Noto Sans JP（300/400/500/700）。jQueryや追加のCarouselライブラリは不要。URLと `integrity` は各HTMLを参照する。Google AnalyticsのIDは `G-8YXW37KQM9`。
 
-- 背景（空のグラデーション `--hero-bg` と、`body::before` の静かな雲）
-- ナビゲーション、フッター（スクロールバーはOS既定のまま。`::-webkit-scrollbar` で塗り替えない）
-- 本文コンテナ `.main-container, .policy-main`（両者は同一定義。`flex: 1` で本文が短いページでも
-  フッターを最下部に保つ）
+## 共通デザインの制約
 
-意図的に「使わない」もの（AI生成UIの定型を避けるため）:
+- 共通スタイルは `site-policy.css` に集約し、個別ページで再定義しない。
+- 色・角丸・影・余白は同ファイルの `:root` の変数を再利用する。必要なトークンがなければ共通側に定義する。個別ページに色値や `rgba(...)` を追加しない。
+- 青は `--hero-sky*` の色相から派生させる。ロイヤルブルーやBootstrap既定の `#0d6efd` を混ぜず、Bootstrapのリンク色の上書きも維持する。
+- 通常の文字は背景とのコントラスト比4.5:1以上を保つ。
 
-- ピル型（`border-radius: 999px`）のバッジ・チップ。公開情報などは `／` 区切りのテキストで並べる
-- 装飾目的のFont Awesomeアイコン（カレンダー・人数・ⓘなど）。ブランドアイコン（X・YouTube・Steam）と
-  外部リンク印は可
-- 日本語の小見出しへの `letter-spacing` の広げ、グラデーション文字、ガラス風ぼかし、光る線
-- 角丸は `--card-radius`（6px）の一種類に揃える
+| 変数 | 用途・基準 |
+|---|---|
+| `--shell-max` / `--shell-gutter` | 共通コンテナの最大幅1320pxと左右余白 |
+| `--header-offset` | アンカーの `scroll-margin-top`。現在90px |
+| `--card-radius` / `--card-border` / `--card-shadow` / `--card-shadow-hover` | カードの共通見た目。角丸は6px |
+| `--panel-radius` / `--button-radius` | 本文コンテナは現在0、ボタンはカードと同じ6px |
+| `--hero-sky-light` / `--hero-sky` / `--hero-sky-deep` | 空のグラデーションの基準色 |
+| `--sky-blue` / `--interactive` / `--interactive-hover` | 境界線・リンク・ボタンの青 |
+| `--sky-tint` / `--sky-tint-strong` | 薄い面・罫線・ホバー背景の透明な空色 |
+| `--surface` / `--cloud-white` | 白い面・淡い補足面 |
+| `--text-dark` / `--text-body` / `--text-light` | 紺系の文字色3段階 |
+| `--text-on-dark` / `--text-on-dark-muted` / `--text-on-sky` | 濃い背景・空色背景上の文字 |
+| `--hero-bg` / `--band-bg` | ページ背景と本文の淡い帯 |
+| `--space-medium` / `--section-gap` / `--hero-padding` / `--policy-*` など | 共通の余白。具体的な定義は `:root` を参照 |
+
+- 背景は `--hero-bg` と `body::before` の静かな雲。ナビとフッターも共通CSSで管理する。
+- `.main-container, .policy-main` は共通定義と `flex: 1` を維持し、本文が短くてもフッターを最下部に置く。
+- 長文の本文幅は1080px程度を上限にする。シェル幅と本文幅を混同しない。
+- スクロールバーはOS既定のままにし、`::-webkit-scrollbar` で装飾しない。
+- ピル型バッジ・チップ、グラデーション文字、ガラス風ぼかし、光る線、日本語小見出しの字間拡張を追加しない。
+- 公開情報などは `／` 区切りのテキストにする。装飾目的のFont Awesomeアイコンは使わない。ブランドアイコン（X・YouTube・Steam）と外部リンク印は可。
+
+## 全HTMLにまたがる変更
+
+- ユーザー向けテキストとメタデータは日本語、文書言語は `lang="ja"` とする。固有名詞は元の表記を保つ。
+- 外部リンクは既存規約の `target="blank"` に合わせる。画像は `images/` に配置する。
+- CDNのバージョンを変更したら、対応する `integrity` も更新する。
+- `site-policy.css` を変更したら、それを参照する全HTMLの `?v=YYYYMMDD-N` を同じ新しい値に更新する。
 
 ### ヘッダー
 
-**全ページで完全に同一のマークアップを使うこと。** 現在ページの印
-（`active` / `aria-current="page"`）だけがページごとの差分。
+- 6ページのヘッダーは同一マークアップにする。ページごとの差分は `active` と `aria-current="page"` のみ。
+- 現在のナビ順は「Luftelliについて → 光影の塔 → お問い合わせ → ブログ → X → YouTube」。変更時は全6ページに反映する。
+- HTMLの `sticky-top` とCSSの `position: sticky; top: 0` を維持する。
+- `body` の `overflow-x: clip` を `hidden` に変更しない。スクロールコンテナが変わるとヘッダーのstickyが効かなくなる。
+- `<a class="nav-link">` の内容の前後に改行・インデントを入れない。特に `dropdown-toggle::after` の前の空白はリンク幅をずらす。
 
-- `position: sticky; top: 0` で上端に追従する（HTML側のクラスは `sticky-top`）
-- `body` は `overflow-x: clip`。**`hidden` にすると body がスクロールコンテナ扱いになり
-  ヘッダーの sticky が効かなくなる**ので戻さないこと
-- **`<a class="nav-link">` の中に前後の改行・インデントを入れないこと。**
-  `dropdown-toggle` は `::after` で▼が付くため、閉じタグ前の空白が文字と▼の間に残り、
-  リンク幅が約3.6pxずれてナビ全体の位置が狂う
+## トップページの構造と更新
 
-その他の規約:
+### 全体
 
-- **本文の行長**: 幅を広げても読みやすさを保つため、長文は1080px程度で頭打ちにする
-  （規約ページは `.policy-layout > .policy-list` などで制御）。
-- **アンカー位置**: 固定ヘッダーに隠れないよう `scroll-margin-top` に `--header-offset` を使う。
-- **`site-policy.css` の更新時**: 各HTMLの `?v=YYYYMMDD-N` を揃えて更新する（キャッシュ対策）。
+- ヒーローは `.hero-grid` の2カラム（左コピー、右 `images/ctm_header.jpg`）。992px未満で1カラムにする。
+- キービジュアル下部のバーは「詳しく見る」の導線だけにする。公開時期などはショーケースに集約する。
+- 本文順は「Luftelliについて → 現在開発中のタイトル → 活動実績 → メンバー」。ナビの項目構成とは区別する。
+- 各セクションは `.main-container > section.section > .container` とし、帯を全幅に敷ける構造を保つ。
+- 作品を強調する空色の面はヒーローのキービジュアルとショーケースに使う。本文の `.section-band` は開発中タイトルだけに付け、Aboutやメンバーには付けない。共通背景やUIの青はこの制限の対象外。
+- `.section-intro` は見出しとカードの間に置く。フッターは `--cloud-white` の淡い面で閉じる。
+- Aboutは `.about-grid`（本文と名前の由来）、活動実績は `.achievement-list`（年月と本文の罫線リスト）を使う。
 
-意図的に揃えていない箇所:
+### 開発中タイトル・スクリーンショット
 
-- ヒーロー: トップは `.hero-section`（左右2カラム＋キービジュアル）、下層は `.policy-hero`
-  （左寄せ。`.policy-hero-head` に h1 と制定日 `.policy-hero-meta` を並べ、`.policy-hero-lead` を下に置く）
-- 行間: 長文を読ませる規約ページのみ `body.policy-page { line-height: 1.9 }`
+- 更新先は `#current-project` 内の `.showcase`。左にBootstrap Carouselの `#shotCarousel`、右に説明とCTAを置く。
+- 2カラムは1400px以上、列比は `1.7fr : 1fr`。それ未満では縦積みにする。
+- 画像の `aspect-ratio: 16/9` を維持し、異なる比率の素材を使う場合は素材に合わせる。`object-fit: cover` でカード高に追従させて画像を切り取らない。
+- 2カラムでは画像の高さが本文以上になるようにする。本文・余白を増やしたら、画像の上下に帯が出ないことを各幅で実測する。
+- 画像の増減時は `.carousel-inner` の項目と `.carousel-indicators` のボタン数を揃え、`data-bs-slide-to` を0からの連番にする。`active` は先頭の画像とボタンの1組だけに付ける。
+- `prefers-reduced-motion: reduce` で `data-bs-ride` を外す処理を維持する。BootstrapのCarousel自動初期化より前に実行する必要がある。
 
-### HTMLの編集
+### メンバー
 
-1. **日本語コンテンツ**: すべてのテキストは日本語で記述（メタデータ含む）
-2. **外部リンク**: `target="blank"` を使用（例: X、YouTube、ブログ、Steam）
-3. **画像**: `images/` ディレクトリに配置
-4. **CDNのバージョン変更時**: 整合性ハッシュ（`integrity` 属性）も更新する
+- `.member-grid` 内の既存 `.member-card` を参考に追加する。`auto-fit` で折り返すため、人数変更だけなら列数のCSS変更は不要。
+- 名前とリンクは `.member-header`、紹介文は `.member-text` に置く。
+- 活動休止中は `member-card member-card-inactive` とし、`.member-status` に「現在は活動休止中」を添える。バッジ化しない。
 
-### トップページ（index.html）の構成
+## 規約・方針ページの構造と更新
 
-- **ヒーロー**: `.hero-grid` の左右2カラム（左=コピー、右=キービジュアル `images/ctm_header.jpg`）。
-  lg未満では1カラムに折り返す。キービジュアル下部のバーは「詳しく見る」の導線だけを持つ
-  （公開時期などの情報はショーケース側に一本化）。
-- **セクションの順序**: Luftelliについて → 現在開発中のタイトル（帯） → 活動実績 → メンバー。
-  ヘッダーのナビもこの順に並べる（全ページ共通のマークアップなので、変える時は6ファイル全部）。
-- **本文の各セクション**: `.main-container > section.section > .container` の構造。
-  `.container` はセクションごとに持つ（帯を全幅に敷けるようにするため）。
-  `.section-band` を付けたセクションだけ `--band-bg` の帯に載る（現在は「現在開発中のタイトル」）。
-  空色＝「光影の塔」の色として、ヒーローのキービジュアルとショーケースの2箇所だけに使う。
-  About・メンバーなど作品以外のセクションには帯を付けない。ページ末尾はフッターの淡い面
-  （`--cloud-white`）で閉じる。
-- **リード文**: `.section-intro` は見出しとカードの間に置く（カードの下に置くと帯の中で浮く）。
-- **Luftelliについて**: `.about-grid`（本文カード＋サークル名の由来カード）
-- **現在開発中のタイトル**: `.showcase`（左=スクリーンショットのスライド、右=情報とCTA）。
-  スライドはBootstrapのCarousel（`#shotCarousel`）で、追加のライブラリは使っていない。
-  画像は `aspect-ratio: 16/9` 固定なので、素材が16:9ならトリミングされない。
-  **`object-fit: cover` で画像をカードの高さに追従させないこと**（上下が切れる）。
+- `<main class="policy-main"> > <div class="container policy-layout">` 内に、目次の `<aside class="policy-side">` と本文の `.policy-list` または `.policy-stack` を置く。
+- 目次は `.policy-nav > .policy-toc`。番号はCSS counterに任せ、手入力しない。
+- セクション追加時は本文の `<article class="card" id="...">` と目次のリンクをセットで追加し、`id` と `href` を一致させる。
+- 1200px未満では目次を本文の上に移し、stickyを解除する。
+- `contact.html` のような1セクションのページには目次を置かず、本文幅だけ揃える。
+- 下層ヒーローは左寄せの `.policy-hero`。`.policy-hero-head` にh1と制定日の `.policy-hero-meta`、その下に `.policy-hero-lead` を置く。トップのヒーロー構造には統一しない。
+- 規約ページだけ `body.policy-page { line-height: 1.9 }` を適用する。
 
-  カードの高さは「画像の高さ」と「本文の高さ」の大きい方になる。本文の方が高いと
-  画像の上下に帯が出るため、**常に画像 ≧ 本文** になるよう次の2点で調整している。
-  本文の要素を増やす・余白を広げる場合は、各幅で帯が出ないか実測して確認すること。
+## 検証と完了条件
 
-  1. 左右2カラムにするのは1400px以上（それ未満は縦積みで画像が全幅になり帯は出ない）
-  2. 2カラム時の列比は `1.7fr : 1fr` で画像側を大きく取る
+ライブラリ仕様の確認が必要な場合はContext7を使用する。利用できなければ公式ドキュメントを参照し、代替したことを報告する。
+ローカル表示はHTMLを直接ブラウザで開く。必要な場合のみローカルの静的HTTPサーバーを使い、ビルド工程は追加しない。
 
-  素材の縦横比が16:9でない場合は `aspect-ratio` を素材に合わせること。
-- **活動実績**: `.achievement-list`（年月＋本文の罫線リスト）
-- **メンバー**: `.member-grid`（`auto-fit` の自動折り返し。カード追加時のCSS変更は不要）
+| 変更の種類 | 必要な確認 |
+|---|---|
+| `AGENTS.md` など文書だけ | 差分、記述の整合性、参照先の存在を確認。サイトの表示・性能検証は不要 |
+| HTML・CSS・JavaScript・画像 | 対象ページをブラウザで表示し、デスクトップとモバイルで表示・操作・コンソールエラーを確認 |
+| 共通CSS・ナビ・フッター | 全6ページの共通部分、CSSのキャッシュ値、リンク先の整合性を確認 |
+| レイアウト | 変更したブレークポイントの前後も確認。対象に応じて992px・1200px・1400px付近で折り返し、横スクロール、アンカー位置を確認 |
+| Carousel・動き | 画像とボタンの対応、手動送り、通常時と `prefers-reduced-motion: reduce` 時の動作を確認 |
+| サイトの表示・動作に関わる変更 | Chrome DevToolsで読み込み・レイアウトシフト・操作時の性能を確認。性能への影響がある変更では同条件の変更前後を比較 |
 
-### 規約・方針ページの構成
-
-`<main class="policy-main">` > `<div class="container policy-layout">` の下に、
-`<aside class="policy-side">`（目次）と `.policy-list` / `.policy-stack`（本文）を並べる。
-
-- 目次は `.policy-nav` > `.policy-toc` で、番号は CSS counter で自動採番される
-- 各セクションの `<article class="card" id="...">` と目次の `href` を対応させる
-- 1200px未満では目次が本文の上に回り込む（sticky解除）
-- セクションが1つだけのページ（contact.html）は目次を置かず、本文幅だけ揃える
-
-### 開発ワークフロー
-
-1. **デプロイ**: `master-deploy` ブランチへのマージで自動デプロイ（GitHub Pages）
-2. **PR作成**: `.github/pull_request_template.md` を使用（Issue番号必須）
-3. **ローカルプレビュー**: `index.html` を直接ブラウザで開く（ビルド不要）
-
-### ライセンス
-
-- **CC BY-NC-ND 4.0**: 非商用、改変不可、クレジット表示必須
-- `LICENSE` ファイル参照（403行のCreative Commons全文）
-
-## CDN依存関係
-
-```html
-<!-- Bootstrap 5.3.2（CSS + JS Bundle。jQuery/Popperは不要） -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Font Awesome 6.4.2 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-<!-- Google Fonts: Noto Sans JP -->
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-```
-
-バージョン変更時は整合性ハッシュ（`integrity` 属性）の更新が必要。
-
-## 一般的なタスク
-
-### 開発中タイトルの情報を更新
-
-`index.html` の `#current-project` セクション（`.showcase`）を編集する。
-スクリーンショットを増減する場合は、`#shotCarousel` の `.carousel-inner` に
-`<div class="carousel-item"><img ...></div>` を追加し、`.carousel-indicators` の
-ボタン（`data-bs-slide-to`）も同じ数だけ増やす。`active` は先頭の1組だけに付ける。
-
-なお `prefers-reduced-motion: reduce` の環境では、ページ末尾のスクリプトが
-`data-bs-ride` を外して自動送りを止める（Bootstrapの初期化前に実行する必要がある）。
-
-### メンバーを追加/更新
-
-`index.html` の `.member-grid` 内に追加する（列数は自動調整されるためCSSの変更は不要）:
-
-```html
-<div class="member-card">
-    <div class="member-header">
-        名前 <a href="XのURL" target="blank" title="X"><i class="fab fa-x-twitter"></i></a>
-    </div>
-    <div class="member-text">説明<br>追加情報。</div>
-</div>
-```
-
-活動休止中のメンバーは `member-card member-card-inactive` とし、
-`<div class="member-status">現在は活動休止中</div>` を添える（バッジではなく小さな補足テキストとして表示される）。
-
-### 規約ページにセクションを追加
-
-1. `.policy-list` に `<article class="card" id="新しいID">` を追加する
-2. 同じページの `.policy-toc` に `<li><a href="#新しいID">見出し</a></li>` を追加する
-   （番号はCSSが自動採番するため手で書かない）
-
-## タスク実施時の順守事項
-
-- ライブラリのドキュメントはcontext7ツールを使用して参照すること
-- 変更後はブラウザでの表示確認を必ず行うこと
-- パフォーマンスが問題ないかchrome-devtoolsツールで確認すること
+- ブラウザやChrome DevToolsツールが使えない場合は、可能な静的検証を進め、未実施の確認と理由を報告する。利用できないツールを使ったことにしない。
+- 差分の最終確認に `git diff --check` を使う。変更内容に見合わないテスト基盤の新設は不要。
+- PRを作成する場合はテンプレートを使用する。Issue番号が不明なら捏造せず、その情報だけを確認する。
+- `master-deploy` へのマージでGitHub Pagesが自動デプロイされる。公開を伴う操作はユーザーから依頼された範囲で実施する。
